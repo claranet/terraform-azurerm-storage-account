@@ -1,16 +1,3 @@
-module "tags" {
-  source = "../tags"
-
-  creation_date = var.creation_date
-  stack         = var.stack
-  environment   = var.environment
-  countries     = var.countries
-}
-
-module "common_variables" {
-  source = "../variables"
-}
-
 resource "azurerm_storage_account" "storage" {
   name                = coalesce(var.storage_account_name, local.default_storage_account_name)
   resource_group_name = var.resource_group_name
