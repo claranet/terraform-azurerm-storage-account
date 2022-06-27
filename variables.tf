@@ -1,3 +1,5 @@
+# Common
+
 variable "client_name" {
   description = "Name of client"
   type        = string
@@ -20,8 +22,8 @@ variable "environment" {
 variable "stack" {
 }
 
-variable "storage_account_name" {
-}
+
+# Storage account parameters
 
 variable "account_tier" {
 }

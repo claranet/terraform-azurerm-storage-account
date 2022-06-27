@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "storage" {
-  name                = coalesce(var.storage_account_name, local.default_storage_account_name)
+  name                = local.sa_name
   resource_group_name = var.resource_group_name
   location            = var.location
 
