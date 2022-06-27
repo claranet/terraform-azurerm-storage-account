@@ -29,7 +29,3 @@ output "resource_group_name" {
 output "id" {
   value = azurerm_storage_account.storage.id
 }
-
-output "storage_account_containers" {
-  value = azurerm_storage_container.container.name
-}

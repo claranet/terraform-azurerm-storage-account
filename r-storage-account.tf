@@ -25,5 +25,4 @@ resource "azurerm_storage_account" "storage" {
   }
 
   tags = merge(local.default_tags, var.extra_tags)
-
 }
