@@ -33,29 +33,28 @@ Common Azure terraform module to create a Storage Account.
 | access\_tier | n/a | `string` | `"Hot"` | no |
 | account\_kind | n/a | `string` | `"StorageV2"` | no |
 | account\_tier | n/a | `any` | n/a | yes |
-| client\_name | Name of client | `string` | n/a | yes |
-| container\_access\_type | he Access Level configured for this Container. Possible values are blob, container or private | `string` | `"private"` | no |
-| containers | Containers to create on the storage account | `list(string)` | `[]` | no |
+| client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_domain\_name | n/a | `string` | `""` | no |
 | default\_firewall\_action | Which default firewalling policy to apply. Valid values are Allow or Deny | `string` | `"Deny"` | no |
+| default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | enable\_https\_traffic\_only | n/a | `string` | `"true"` | no |
-| environment | n/a | `any` | n/a | yes |
-| extra\_tags | n/a | `map(string)` | `{}` | no |
+| environment | Project environment | `string` | n/a | yes |
+| extra\_tags | Additional tags to associate with your Azure Container Registry. | `map(string)` | `{}` | no |
 | ip\_rules | IPs to allow access to that storage account | `list(string)` | `[]` | no |
-| location | n/a | `any` | n/a | yes |
-| location\_short | Short string for Azure location. | `string` | n/a | yes |
+| location | Azure location | `string` | n/a | yes |
+| location\_short | Short string for Azure location | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_destinations\_ids | List of destination resources Ids for logs diagnostics destination. Can be Storage Account, Log Analytics Workspace and Event Hub. No more than one of each can be set. Empty list to disable logging. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | logs\_retention\_days | Number of days to keep logs on storage account | `number` | `30` | no |
 | min\_tls\_version | n/a | `string` | `"TLS1_2"` | no |
-| name\_prefix | Optional prefix for storage account name | `string` | `""` | no |
+| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | network\_bypass | Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None' | `list(string)` | <pre>[<br>  "None"<br>]</pre> | no |
 | replication\_type | n/a | `any` | n/a | yes |
-| resource\_group\_name | n/a | `any` | n/a | yes |
-| stack | n/a | `any` | n/a | yes |
+| resource\_group\_name | Resource group name | `string` | n/a | yes |
+| stack | Project stack name | `string` | n/a | yes |
 | static\_website\_config | n/a | `list(map(string))` | `[]` | no |
 | storage\_account\_custom\_name | Custom Azure Storage Account name, generated if not set | `string` | `""` | no |
 | subnet\_ids | Subnets to allow access to that storage account | `list(string)` | `[]` | no |

@@ -1,27 +1,34 @@
 # Common
 
-variable "client_name" {
-  description = "Name of client"
-  type        = string
-}
-
 variable "location_short" {
-  description = "Short string for Azure location."
+  description = "Short string for Azure location"
   type        = string
 }
 
 variable "location" {
+  description = "Azure location"
+  type        = string
 }
 
-variable "resource_group_name" {
+variable "client_name" {
+  description = "Client name/account used in naming"
+  type        = string
 }
 
 variable "environment" {
+  description = "Project environment"
+  type        = string
 }
 
 variable "stack" {
+  description = "Project stack name"
+  type        = string
 }
 
+variable "resource_group_name" {
+  description = "Resource group name"
+  type        = string
+}
 
 # Storage account parameters
 
@@ -41,11 +48,6 @@ variable "account_kind" {
 variable "replication_type" {
 }
 
-variable "extra_tags" {
-  type    = map(string)
-  default = {}
-}
-
 variable "enable_https_traffic_only" {
   type    = string
   default = "true"
@@ -54,18 +56,6 @@ variable "enable_https_traffic_only" {
 variable "custom_domain_name" {
   type    = string
   default = ""
-}
-
-variable "name_prefix" {
-  description = "Optional prefix for storage account name"
-  type        = string
-  default     = ""
-}
-
-variable "container_access_type" {
-  description = "he Access Level configured for this Container. Possible values are blob, container or private"
-  type        = string
-  default     = "private"
 }
 
 variable "static_website_config" {
@@ -86,12 +76,6 @@ variable "network_bypass" {
 
 variable "ip_rules" {
   description = "IPs to allow access to that storage account"
-  type        = list(string)
-  default     = []
-}
-
-variable "containers" {
-  description = "Containers to create on the storage account"
   type        = list(string)
   default     = []
 }
