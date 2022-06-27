@@ -32,41 +32,60 @@ variable "resource_group_name" {
 
 # Storage account parameters
 
+variable "account_kind" {
+  type        = string
+  description = "Defines the Kind of account. Valid options are `BlobStorage`, `BlockBlobStorage`, `FileStorage`, `Storage` and `StorageV2`. Changing this forces a new resource to be created. Defaults to StorageV2."
+  default     = "StorageV2"
+}
+
 variable "account_tier" {
+  type        = string
+  description = "Defines the Tier to use for this storage account. Valid options are `Standard` and `Premium`. For `BlockBlobStorage` and `FileStorage` accounts only `Premium` is valid. Changing this forces a new resource to be created."
+  default     = "Standard"
 }
 
 variable "access_tier" {
-  type    = string
-  default = "Hot"
+  type        = string
+  description = "Defines the access tier for `BlobStorage`, `FileStorage` and `StorageV2` accounts. Valid options are `Hot` and `Cool`, defaults to `Hot`."
+  default     = "Hot"
 }
 
-variable "account_kind" {
-  type    = string
-  default = "StorageV2"
-}
-
-variable "replication_type" {
+variable "account_replication_type" {
+  type        = string
+  description = "Defines the type of replication to use for this storage account. Valid options are `LRS`, `GRS`, `RAGRS`, `ZRS`, `GZRS` and `RAGZRS`."
 }
 
 variable "enable_https_traffic_only" {
-  type    = string
-  default = "true"
+  type        = bool
+  description = "Boolean flag which forces HTTPS if enabled."
+  default     = true
+}
+
+variable "min_tls_version" {
+  type        = string
+  description = "The minimum supported TLS version for the storage account. Possible values are `TLS1_0`, `TLS1_1`, and `TLS1_2`. "
+  default     = "TLS1_2"
 }
 
 variable "custom_domain_name" {
-  type    = string
-  default = ""
-}
-
-variable "static_website_config" {
-  type    = list(map(string))
-  default = []
+  type        = string
+  description = "The Custom Domain Name to use for the Storage Account, which will be validated by Azure."
+  default     = null
 }
 
 variable "use_subdomain" {
-  type    = bool
-  default = false
+  type        = bool
+  description = "Should the Custom Domain Name be validated by using indirect CNAME validation?"
+  default     = false
 }
+
+variable "static_website_config" {
+  type        = list(map(string))
+  description = "Static website configurations list. Map object should contains `index_document` and `error_404_document` attributes."
+  default     = []
+}
+
+# Storage Firewall
 
 variable "network_bypass" {
   description = "Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None'"
@@ -87,10 +106,7 @@ variable "subnet_ids" {
 }
 
 variable "default_firewall_action" {
+  type        = string
   description = "Which default firewalling policy to apply. Valid values are Allow or Deny"
   default     = "Deny"
-}
-
-variable "min_tls_version" {
-  default = "TLS1_2"
 }
