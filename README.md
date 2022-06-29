@@ -93,6 +93,7 @@ module "storage_account" {
 |------|------|
 | [azapi_update_resource.sa_pitr](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
 | [azurecaf_name.sa](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
+| [azurerm_advanced_threat_protection.threat_protection](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/advanced_threat_protection) | resource |
 | [azurerm_storage_account.storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
 | [azurerm_storage_account_network_rules.network_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
 
@@ -104,6 +105,7 @@ module "storage_account" {
 | account\_kind | Defines the Kind of account. Valid options are `BlobStorage`, `BlockBlobStorage`, `FileStorage`, `Storage` and `StorageV2`. Changing this forces a new resource to be created. Defaults to StorageV2. | `string` | `"StorageV2"` | no |
 | account\_replication\_type | Defines the type of replication to use for this storage account. Valid options are `LRS`, `GRS`, `RAGRS`, `ZRS`, `GZRS` and `RAGZRS`. | `string` | n/a | yes |
 | account\_tier | Defines the Tier to use for this storage account. Valid options are `Standard` and `Premium`. For `BlockBlobStorage` and `FileStorage` accounts only `Premium` is valid. Changing this forces a new resource to be created. | `string` | `"Standard"` | no |
+| advanced\_threat\_protection\_enabled | Boolean flag which controls if advanced threat protection is enabled, see [documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
 | allow\_nested\_items\_to\_be\_public | Allow or disallow nested items within this Account to opt into being public. | `bool` | `false` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
@@ -113,6 +115,8 @@ module "storage_account" {
 | environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Additional tags to associate with your Azure Container Registry. | `map(string)` | `{}` | no |
 | https\_traffic\_only\_enabled | Boolean flag which forces HTTPS if enabled. | `bool` | `true` | no |
+| identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account | `list(string)` | `null` | no |
+| identity\_type | Specifies the type of Managed Service Identity that should be configured on this Storage Account | `string` | `null` | no |
 | ip\_rules | IPs to allow access to that storage account | `list(string)` | `[]` | no |
 | location | Azure location | `string` | n/a | yes |
 | location\_short | Short string for Azure location | `string` | n/a | yes |
@@ -129,8 +133,6 @@ module "storage_account" {
 | stack | Project stack name | `string` | n/a | yes |
 | static\_website\_config | Static website configurations list. Map object should contains `index_document` and `error_404_document` attributes. | `list(map(string))` | `[]` | no |
 | storage\_account\_custom\_name | Custom Azure Storage Account name, generated if not set | `string` | `""` | no |
-| storage\_account\_identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account | `list(string)` | `null` | no |
-| storage\_account\_identity\_type | Specifies the type of Managed Service Identity that should be configured on this Storage Account | `string` | `null` | no |
 | storage\_blob\_data\_protection | Storage account blob Data protection parameters | <pre>object({<br>    change_feed_enabled                       = bool<br>    versioning_enabled                        = bool<br>    delete_retention_policy_in_days           = number<br>    container_delete_retention_policy_in_days = number<br>    container_point_in_time_restore           = bool<br>  })</pre> | <pre>{<br>  "change_feed_enabled": true,<br>  "container_delete_retention_policy_in_days": 30,<br>  "container_point_in_time_restore": true,<br>  "delete_retention_policy_in_days": 30,<br>  "versioning_enabled": true<br>}</pre> | no |
 | subnet\_ids | Subnets to allow access to that storage account | `list(string)` | `[]` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `storage_account_custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |

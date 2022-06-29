@@ -13,10 +13,10 @@ resource "azurerm_storage_account" "storage" {
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
 
   dynamic "identity" {
-    for_each = var.storage_account_identity_type == null ? [] : ["enabled"]
+    for_each = var.identity_type == null ? [] : ["enabled"]
     content {
-      type         = var.storage_account_identity_type
-      identity_ids = var.storage_account_identity_ids == "UserAssigned" ? var.storage_account_identity_ids : null
+      type         = var.identity_type
+      identity_ids = var.identity_ids == "UserAssigned" ? var.identity_ids : null
     }
   }
 
@@ -58,4 +58,9 @@ resource "azurerm_storage_account" "storage" {
   }
 
   tags = merge(local.default_tags, var.extra_tags)
+}
+
+resource "azurerm_advanced_threat_protection" "threat_protection" {
+  enabled            = var.advanced_threat_protection_enabled
+  target_resource_id = azurerm_storage_account.storage.id
 }

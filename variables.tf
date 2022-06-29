@@ -92,13 +92,13 @@ variable "static_website_config" {
 }
 
 # Identity
-variable "storage_account_identity_type" {
+variable "identity_type" {
   description = "Specifies the type of Managed Service Identity that should be configured on this Storage Account"
   type        = string
   default     = null
 }
 
-variable "storage_account_identity_ids" {
+variable "identity_ids" {
   description = "Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account"
   type        = list(string)
   default     = null
@@ -154,4 +154,11 @@ variable "storage_blob_data_protection" {
     container_delete_retention_policy_in_days = 30
     container_point_in_time_restore           = true
   }
+}
+
+# Threat protection
+variable "advanced_threat_protection_enabled" {
+  description = "Boolean flag which controls if advanced threat protection is enabled, see [documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."
+  type        = bool
+  default     = false
 }
