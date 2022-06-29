@@ -43,6 +43,6 @@ module "storage_account" {
   logs_destinations_ids = []
 
   extra_tags = {
-    foo = bar
+    foo = "bar"
   }
 }

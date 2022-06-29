@@ -1,4 +1,6 @@
 resource "azurerm_storage_account_network_rules" "network_rules" {
+  for_each = toset(var.network_rules_enabled ? ["enabled"] : [])
+
   storage_account_id = azurerm_storage_account.storage.id
 
   default_action             = var.default_firewall_action

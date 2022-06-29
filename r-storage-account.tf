@@ -7,7 +7,7 @@ resource "azurerm_storage_account" "storage" {
   account_tier              = var.account_tier
   account_kind              = var.account_kind
   account_replication_type  = var.account_replication_type
-  enable_https_traffic_only = var.enable_https_traffic_only
+  enable_https_traffic_only = var.https_traffic_only_enabled
 
   min_tls_version = var.min_tls_version
 

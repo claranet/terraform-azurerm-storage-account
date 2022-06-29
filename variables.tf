@@ -55,7 +55,7 @@ variable "account_replication_type" {
   description = "Defines the type of replication to use for this storage account. Valid options are `LRS`, `GRS`, `RAGRS`, `ZRS`, `GZRS` and `RAGZRS`."
 }
 
-variable "enable_https_traffic_only" {
+variable "https_traffic_only_enabled" {
   type        = bool
   description = "Boolean flag which forces HTTPS if enabled."
   default     = true
@@ -87,6 +87,12 @@ variable "static_website_config" {
 
 # Storage Firewall
 
+variable "network_rules_enabled" {
+  description = "Boolean to enable Network Rules on the Storage Account, requires `network_bypass`, `ip_rules`, `subnet_ids` or `default_firewall_action` correctly set if enabled."
+  type        = bool
+  default     = true
+}
+
 variable "network_bypass" {
   description = "Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None'"
   type        = list(string)
@@ -110,6 +116,8 @@ variable "default_firewall_action" {
   description = "Which default firewalling policy to apply. Valid values are Allow or Deny"
   default     = "Deny"
 }
+
+# Data protection
 
 variable "storage_blob_data_protection" {
   description = "Storage account blob Data protection parameters"
