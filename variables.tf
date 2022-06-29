@@ -67,6 +67,12 @@ variable "min_tls_version" {
   default     = "TLS1_2"
 }
 
+variable "allow_nested_items_to_be_public" {
+  type        = bool
+  description = "Allow or disallow nested items within this Account to opt into being public."
+  default     = false
+}
+
 variable "custom_domain_name" {
   type        = string
   description = "The Custom Domain Name to use for the Storage Account, which will be validated by Azure."
