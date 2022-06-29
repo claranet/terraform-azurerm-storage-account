@@ -12,6 +12,14 @@ resource "azurerm_storage_account" "storage" {
   min_tls_version                 = var.min_tls_version
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
 
+  dynamic "identity" {
+    for_each = var.storage_account_identity_type == null ? [] : ["enabled"]
+    content {
+      type         = var.storage_account_identity_type
+      identity_ids = var.storage_account_identity_ids == "UserAssigned" ? var.storage_account_identity_ids : null
+    }
+  }
+
   dynamic "static_website" {
     for_each = var.static_website_config
     content {

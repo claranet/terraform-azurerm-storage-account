@@ -91,6 +91,19 @@ variable "static_website_config" {
   default     = []
 }
 
+# Identity
+variable "storage_account_identity_type" {
+  description = "Specifies the type of Managed Service Identity that should be configured on this Storage Account"
+  type        = string
+  default     = null
+}
+
+variable "storage_account_identity_ids" {
+  description = "Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account"
+  type        = list(string)
+  default     = null
+}
+
 # Storage Firewall
 
 variable "network_rules_enabled" {
