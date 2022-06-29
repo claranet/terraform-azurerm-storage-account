@@ -110,3 +110,21 @@ variable "default_firewall_action" {
   description = "Which default firewalling policy to apply. Valid values are Allow or Deny"
   default     = "Deny"
 }
+
+variable "storage_blob_data_protection" {
+  description = "Storage account blob Data protection parameters"
+  type = object({
+    change_feed_enabled                       = bool
+    versioning_enabled                        = bool
+    delete_retention_policy_in_days           = number
+    container_delete_retention_policy_in_days = number
+    container_point_in_time_restore           = bool
+  })
+  default = {
+    change_feed_enabled                       = true
+    versioning_enabled                        = true
+    delete_retention_policy_in_days           = 30
+    container_delete_retention_policy_in_days = 30
+    container_point_in_time_restore           = true
+  }
+}

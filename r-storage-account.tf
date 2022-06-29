@@ -27,5 +27,26 @@ resource "azurerm_storage_account" "storage" {
     }
   }
 
+  dynamic "blob_properties" {
+    for_each = var.storage_blob_data_protection != null ? ["enabled"] : []
+
+    content {
+      change_feed_enabled = var.storage_blob_data_protection.change_feed_enabled
+      versioning_enabled  = var.storage_blob_data_protection.versioning_enabled
+      dynamic "delete_retention_policy" {
+        for_each = var.storage_blob_data_protection.delete_retention_policy_in_days > 0 ? ["enabled"] : []
+        content {
+          days = var.storage_blob_data_protection.delete_retention_policy_in_days
+        }
+      }
+      dynamic "container_delete_retention_policy" {
+        for_each = var.storage_blob_data_protection.container_delete_retention_policy_in_days > 0 ? ["enabled"] : []
+        content {
+          days = var.storage_blob_data_protection.container_delete_retention_policy_in_days
+        }
+      }
+    }
+  }
+
   tags = merge(local.default_tags, var.extra_tags)
 }

@@ -9,6 +9,7 @@ Common Azure terraform module to create a Storage Account.
 
 | Name | Version |
 |------|---------|
+| azapi | ~> 0.1 |
 | azurecaf | ~> 1.1 |
 | azurerm | ~> 3.0 |
 
@@ -22,6 +23,7 @@ Common Azure terraform module to create a Storage Account.
 
 | Name | Type |
 |------|------|
+| [azapi_update_resource.sa_pitr](https://registry.terraform.io/providers/azure/azapi/latest/docs/resources/update_resource) | resource |
 | [azurecaf_name.sa](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurerm_storage_account.storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
 | [azurerm_storage_account_network_rules.network_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
@@ -57,6 +59,7 @@ Common Azure terraform module to create a Storage Account.
 | stack | Project stack name | `string` | n/a | yes |
 | static\_website\_config | Static website configurations list. Map object should contains `index_document` and `error_404_document` attributes. | `list(map(string))` | `[]` | no |
 | storage\_account\_custom\_name | Custom Azure Storage Account name, generated if not set | `string` | `""` | no |
+| storage\_blob\_data\_protection | Storage account blob Data protection parameters | <pre>object({<br>    change_feed_enabled                       = bool<br>    versioning_enabled                        = bool<br>    delete_retention_policy_in_days           = number<br>    container_delete_retention_policy_in_days = number<br>    container_point_in_time_restore           = bool<br>  })</pre> | <pre>{<br>  "change_feed_enabled": true,<br>  "container_delete_retention_policy_in_days": 30,<br>  "container_point_in_time_restore": true,<br>  "delete_retention_policy_in_days": 30,<br>  "versioning_enabled": true<br>}</pre> | no |
 | subnet\_ids | Subnets to allow access to that storage account | `list(string)` | `[]` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `storage_account_custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_subdomain | Should the Custom Domain Name be validated by using indirect CNAME validation? | `bool` | `false` | no |
