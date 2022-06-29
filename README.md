@@ -142,5 +142,6 @@ module "storage_account" {
 
 | Name | Description |
 |------|-------------|
+| storage\_account\_network\_rules | Network rules of the associated Storage Account |
 | storage\_account\_properties | Created storage account properties |
 <!-- END_TF_DOCS -->
