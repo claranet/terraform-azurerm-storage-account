@@ -156,6 +156,9 @@ module "storage_account" {
 
 | Name | Description |
 |------|-------------|
+| storage\_account\_id | Created storage account ID |
+| storage\_account\_identity | Created storage account Identity bloc |
+| storage\_account\_name | Created storage account name |
 | storage\_account\_network\_rules | Network rules of the associated Storage Account |
 | storage\_account\_properties | Created storage account properties |
 <!-- END_TF_DOCS -->
