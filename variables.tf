@@ -183,7 +183,25 @@ variable "containers" {
   type = list(object({
     name                  = string
     container_access_type = string
-    metadata              = map(string)
+    metadata              = optional(map(string))
+  }))
+  default = []
+}
+
+variable "file_shares" {
+  description = "List of objects to create some File Shares in this Storage Account."
+  type = list(object({
+    name             = string
+    quota            = number
+    access_tier      = optional(string)
+    enabled_protocol = optional(string)
+    metadata         = optional(map(string))
+    acl = optional(list(object({
+      id          = string
+      permissions = string
+      start       = optional(string)
+      expiry      = optional(string)
+    })))
   }))
   default = []
 }

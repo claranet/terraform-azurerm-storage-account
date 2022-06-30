@@ -23,7 +23,12 @@ output "storage_account_network_rules" {
   value       = one(azurerm_storage_account_network_rules.network_rules[*])
 }
 
-output "storage_containers" {
+output "storage_blob_containers" {
   description = "Created blob containers in the Storage Account"
   value       = azurerm_storage_container.container
+}
+
+output "storage_file_shares" {
+  description = "Create file shares in the Storage Account"
+  value       = azurerm_storage_share.share
 }
