@@ -53,6 +53,7 @@ variable "access_tier" {
 variable "account_replication_type" {
   type        = string
   description = "Defines the type of replication to use for this storage account. Valid options are `LRS`, `GRS`, `RAGRS`, `ZRS`, `GZRS` and `RAGZRS`."
+  default     = "LRS"
 }
 
 variable "https_traffic_only_enabled" {
