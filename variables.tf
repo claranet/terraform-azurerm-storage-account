@@ -131,8 +131,8 @@ variable "network_bypass" {
   default     = ["None"]
 }
 
-variable "ip_rules" {
-  description = "IPs to allow access to that storage account."
+variable "allowed_cidrs" {
+  description = "List of CIDR to allow access to that storage account."
   type        = list(string)
   default     = []
 }
