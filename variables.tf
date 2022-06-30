@@ -33,63 +33,69 @@ variable "resource_group_name" {
 # Storage account parameters
 
 variable "account_kind" {
-  type        = string
   description = "Defines the Kind of account. Valid options are `BlobStorage`, `BlockBlobStorage`, `FileStorage`, `Storage` and `StorageV2`. Changing this forces a new resource to be created. Defaults to StorageV2."
+  type        = string
   default     = "StorageV2"
 }
 
 variable "account_tier" {
-  type        = string
   description = "Defines the Tier to use for this storage account. Valid options are `Standard` and `Premium`. For `BlockBlobStorage` and `FileStorage` accounts only `Premium` is valid. Changing this forces a new resource to be created."
+  type        = string
   default     = "Standard"
 }
 
 variable "access_tier" {
-  type        = string
   description = "Defines the access tier for `BlobStorage`, `FileStorage` and `StorageV2` accounts. Valid options are `Hot` and `Cool`, defaults to `Hot`."
+  type        = string
   default     = "Hot"
 }
 
 variable "account_replication_type" {
-  type        = string
   description = "Defines the type of replication to use for this storage account. Valid options are `LRS`, `GRS`, `RAGRS`, `ZRS`, `GZRS` and `RAGZRS`."
+  type        = string
   default     = "ZRS"
 }
 
 variable "https_traffic_only_enabled" {
-  type        = bool
   description = "Boolean flag which forces HTTPS if enabled."
+  type        = bool
   default     = true
 }
 
 variable "min_tls_version" {
-  type        = string
   description = "The minimum supported TLS version for the storage account. Possible values are `TLS1_0`, `TLS1_1`, and `TLS1_2`. "
+  type        = string
   default     = "TLS1_2"
 }
 
 variable "allow_nested_items_to_be_public" {
-  type        = bool
   description = "Allow or disallow nested items within this Account to opt into being public."
+  type        = bool
   default     = false
 }
 
 variable "custom_domain_name" {
-  type        = string
   description = "The Custom Domain Name to use for the Storage Account, which will be validated by Azure."
+  type        = string
   default     = null
 }
 
 variable "use_subdomain" {
-  type        = bool
   description = "Should the Custom Domain Name be validated by using indirect CNAME validation?"
+  type        = bool
   default     = false
 }
 
 variable "static_website_config" {
-  type        = list(map(string))
   description = "Static website configurations list. Map object should contains `index_document` and `error_404_document` attributes."
+  type        = list(map(string))
   default     = []
+}
+
+variable "shared_access_key_enabled" {
+  descdescription = "Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD)."
+  type            = bool
+  default         = true
 }
 
 # Identity
@@ -132,8 +138,8 @@ variable "subnet_ids" {
 }
 
 variable "default_firewall_action" {
-  type        = string
   description = "Which default firewalling policy to apply. Valid values are `Allow` or `Deny`."
+  type        = string
   default     = "Deny"
 }
 
