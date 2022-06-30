@@ -101,7 +101,7 @@ variable "shared_access_key_enabled" {
 variable "nfsv3_enabled" {
   description = "Is NFSv3 protocol enabled? Changing this forces a new resource to be created."
   type        = bool
-  defdefault  = false
+  default     = false
 }
 
 # Identity
