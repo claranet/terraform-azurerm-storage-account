@@ -1,8 +1,7 @@
-# Azure Resource Group
+# Azure Storage Account
 [![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![Notice](https://img.shields.io/badge/notice-copyright-yellow.svg)](NOTICE) [![Apache V2 License](https://img.shields.io/badge/license-Apache%20V2-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/claranet/storage-account/azurerm/)
 
-Common Azure terraform module to create a Storage Account.
-
+Common Azure terraform module to create a Storage Account and manage related parameters (Threat protection, Network Rules, Blob Containers, File Shares, etc.)
 
 <!-- BEGIN_TF_DOCS -->
 ## Global versioning rule for Claranet Azure modules
