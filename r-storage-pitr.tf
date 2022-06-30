@@ -12,7 +12,7 @@ resource "azapi_update_resource" "sa_pitr" {
     properties = {
       restorePolicy = {
         enabled = true
-        days    = var.storage_blob_data_protection.container_delete_retention_policy_in_days - 1
+        days    = var.storage_blob_data_protection != null ? var.storage_blob_data_protection.container_delete_retention_policy_in_days - 1 : 0
       }
     }
   })
