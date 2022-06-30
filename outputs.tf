@@ -5,5 +5,5 @@ output "storage_account_properties" {
 
 output "storage_account_network_rules" {
   description = "Network rules of the associated Storage Account"
-  value       = var.network_rules_enabled ? azurerm_storage_account_network_rules.network_rules["enabled"] : null
+  value       = one(azurerm_storage_account_network_rules.network_rules[*])
 }
