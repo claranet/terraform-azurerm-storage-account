@@ -94,13 +94,13 @@ variable "static_website_config" {
 
 # Identity
 variable "identity_type" {
-  description = "Specifies the type of Managed Service Identity that should be configured on this Storage Account"
+  description = "Specifies the type of Managed Service Identity that should be configured on this Storage Account. Possible values are `SystemAssigned`, `UserAssigned`, `SystemAssigned, UserAssigned` (to enable both)."
   type        = string
-  default     = null
+  default     = "SystemAssigned"
 }
 
 variable "identity_ids" {
-  description = "Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account"
+  description = "Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account."
   type        = list(string)
   default     = null
 }
@@ -114,33 +114,33 @@ variable "network_rules_enabled" {
 }
 
 variable "network_bypass" {
-  description = "Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None'"
+  description = "Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None'."
   type        = list(string)
   default     = ["None"]
 }
 
 variable "ip_rules" {
-  description = "IPs to allow access to that storage account"
+  description = "IPs to allow access to that storage account."
   type        = list(string)
   default     = []
 }
 
 variable "subnet_ids" {
-  description = "Subnets to allow access to that storage account"
+  description = "Subnets to allow access to that storage account."
   type        = list(string)
   default     = []
 }
 
 variable "default_firewall_action" {
   type        = string
-  description = "Which default firewalling policy to apply. Valid values are Allow or Deny"
+  description = "Which default firewalling policy to apply. Valid values are `Allow` or `Deny`."
   default     = "Deny"
 }
 
 # Data protection
 
 variable "storage_blob_data_protection" {
-  description = "Storage account blob Data protection parameters"
+  description = "Storage account blob Data protection parameters."
   type = object({
     change_feed_enabled                       = bool
     versioning_enabled                        = bool

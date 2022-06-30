@@ -122,14 +122,14 @@ module "storage_account" {
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_domain\_name | The Custom Domain Name to use for the Storage Account, which will be validated by Azure. | `string` | `null` | no |
-| default\_firewall\_action | Which default firewalling policy to apply. Valid values are Allow or Deny | `string` | `"Deny"` | no |
+| default\_firewall\_action | Which default firewalling policy to apply. Valid values are `Allow` or `Deny`. | `string` | `"Deny"` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
 | environment | Project environment | `string` | n/a | yes |
 | extra\_tags | Additional tags to associate with your Azure Container Registry. | `map(string)` | `{}` | no |
 | https\_traffic\_only\_enabled | Boolean flag which forces HTTPS if enabled. | `bool` | `true` | no |
-| identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account | `list(string)` | `null` | no |
-| identity\_type | Specifies the type of Managed Service Identity that should be configured on this Storage Account | `string` | `null` | no |
-| ip\_rules | IPs to allow access to that storage account | `list(string)` | `[]` | no |
+| identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account. | `list(string)` | `null` | no |
+| identity\_type | Specifies the type of Managed Service Identity that should be configured on this Storage Account. Possible values are `SystemAssigned`, `UserAssigned`, `SystemAssigned, UserAssigned` (to enable both). | `string` | `"SystemAssigned"` | no |
+| ip\_rules | IPs to allow access to that storage account. | `list(string)` | `[]` | no |
 | location | Azure location | `string` | n/a | yes |
 | location\_short | Short string for Azure location | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
@@ -139,14 +139,14 @@ module "storage_account" {
 | min\_tls\_version | The minimum supported TLS version for the storage account. Possible values are `TLS1_0`, `TLS1_1`, and `TLS1_2`. | `string` | `"TLS1_2"` | no |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
-| network\_bypass | Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None' | `list(string)` | <pre>[<br>  "None"<br>]</pre> | no |
+| network\_bypass | Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None'. | `list(string)` | <pre>[<br>  "None"<br>]</pre> | no |
 | network\_rules\_enabled | Boolean to enable Network Rules on the Storage Account, requires `network_bypass`, `ip_rules`, `subnet_ids` or `default_firewall_action` correctly set if enabled. | `bool` | `true` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | stack | Project stack name | `string` | n/a | yes |
 | static\_website\_config | Static website configurations list. Map object should contains `index_document` and `error_404_document` attributes. | `list(map(string))` | `[]` | no |
 | storage\_account\_custom\_name | Custom Azure Storage Account name, generated if not set | `string` | `""` | no |
-| storage\_blob\_data\_protection | Storage account blob Data protection parameters | <pre>object({<br>    change_feed_enabled                       = bool<br>    versioning_enabled                        = bool<br>    delete_retention_policy_in_days           = number<br>    container_delete_retention_policy_in_days = number<br>    container_point_in_time_restore           = bool<br>  })</pre> | <pre>{<br>  "change_feed_enabled": true,<br>  "container_delete_retention_policy_in_days": 30,<br>  "container_point_in_time_restore": true,<br>  "delete_retention_policy_in_days": 30,<br>  "versioning_enabled": true<br>}</pre> | no |
-| subnet\_ids | Subnets to allow access to that storage account | `list(string)` | `[]` | no |
+| storage\_blob\_data\_protection | Storage account blob Data protection parameters. | <pre>object({<br>    change_feed_enabled                       = bool<br>    versioning_enabled                        = bool<br>    delete_retention_policy_in_days           = number<br>    container_delete_retention_policy_in_days = number<br>    container_point_in_time_restore           = bool<br>  })</pre> | <pre>{<br>  "change_feed_enabled": true,<br>  "container_delete_retention_policy_in_days": 30,<br>  "container_point_in_time_restore": true,<br>  "delete_retention_policy_in_days": 30,<br>  "versioning_enabled": true<br>}</pre> | no |
+| subnet\_ids | Subnets to allow access to that storage account. | `list(string)` | `[]` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `storage_account_custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_subdomain | Should the Custom Domain Name be validated by using indirect CNAME validation? | `bool` | `false` | no |
 
