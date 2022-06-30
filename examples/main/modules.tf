@@ -27,10 +27,7 @@ module "storage_account" {
 
   resource_group_name = module.rg.resource_group_name
 
-  account_kind             = "StorageV2"
-  account_tier             = "Standard"
   account_replication_type = "LRS"
-  min_tls_version          = "TLS1_2"
 
   storage_blob_data_protection = {
     change_feed_enabled                       = true
