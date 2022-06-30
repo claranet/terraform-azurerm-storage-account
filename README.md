@@ -86,6 +86,7 @@ module "storage_account" {
 | Name | Source | Version |
 |------|--------|---------|
 | diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
+| diagnostics\_blob | claranet/diagnostic-settings/azurerm | 5.0.0 |
 
 ## Resources
 
