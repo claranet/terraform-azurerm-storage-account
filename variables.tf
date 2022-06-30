@@ -175,3 +175,15 @@ variable "advanced_threat_protection_enabled" {
   type        = bool
   default     = false
 }
+
+# Data creation/bootstrap
+
+variable "containers" {
+  description = "List of objects to create some Blob containers in this Storage Account."
+  type = list(object({
+    name                  = string
+    container_access_type = string
+    metadata              = map(string)
+  }))
+  default = []
+}

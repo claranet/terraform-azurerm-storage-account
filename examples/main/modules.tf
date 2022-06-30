@@ -54,6 +54,14 @@ module "storage_account" {
     module.logs.log_analytics_workspace_id
   ]
 
+  containers = [
+    {
+      name                  = "bloc1"
+      container_access_type = "private"
+      metadata              = null
+    }
+  ]
+
   extra_tags = {
     foo = "bar"
   }
