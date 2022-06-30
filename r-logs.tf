@@ -15,11 +15,13 @@ module "diagnostics" {
   name_suffix    = var.name_suffix
 }
 
-module "diagnostics_blob" {
+module "diagnostics_type" {
+  for_each = toset(["blob", "file", "table", "queue"])
+
   source  = "claranet/diagnostic-settings/azurerm"
   version = "5.0.0"
 
-  resource_id = format("%s/blobServices/default/", azurerm_storage_account.storage.id)
+  resource_id = format("%s/%sServices/default/", azurerm_storage_account.storage.id, each.key)
 
   logs_destinations_ids = var.logs_destinations_ids
   log_categories        = var.logs_categories
