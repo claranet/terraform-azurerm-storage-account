@@ -93,9 +93,15 @@ variable "static_website_config" {
 }
 
 variable "shared_access_key_enabled" {
-  descdescription = "Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD)."
-  type            = bool
-  default         = true
+  description = "Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD)."
+  type        = bool
+  default     = true
+}
+
+variable "nfsv3_enabled" {
+  description = "Is NFSv3 protocol enabled? Changing this forces a new resource to be created."
+  type        = bool
+  defdefault  = false
 }
 
 # Identity

@@ -12,6 +12,7 @@ resource "azurerm_storage_account" "storage" {
   min_tls_version                 = var.min_tls_version
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   shared_access_key_enabled       = var.shared_access_key_enabled
+  nfsv3_enabled                   = var.nfsv3_enabled
 
   dynamic "identity" {
     for_each = var.identity_type == null ? [] : ["enabled"]
