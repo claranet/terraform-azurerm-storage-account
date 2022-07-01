@@ -6,7 +6,6 @@ resource "azurerm_storage_share" "share" {
   name  = each.key
   quota = each.value.quota
 
-  access_tier      = each.value.access_tier
   enabled_protocol = each.value.enabled_protocol
   metadata         = each.value.metadata
 

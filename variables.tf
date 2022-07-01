@@ -193,7 +193,6 @@ variable "file_shares" {
   type = list(object({
     name             = string
     quota            = number
-    access_tier      = optional(string)
     enabled_protocol = optional(string)
     metadata         = optional(map(string))
     acl = optional(list(object({
