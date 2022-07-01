@@ -10,7 +10,7 @@ resource "azurerm_storage_account" "storage" {
 
   enable_https_traffic_only       = var.https_traffic_only_enabled
   min_tls_version                 = var.min_tls_version
-  allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
+  allow_nested_items_to_be_public = var.public_nested_items_allowed
   shared_access_key_enabled       = var.shared_access_key_enabled
   nfsv3_enabled                   = var.nfsv3_enabled
   large_file_share_enabled        = true
@@ -24,10 +24,10 @@ resource "azurerm_storage_account" "storage" {
   }
 
   dynamic "static_website" {
-    for_each = var.static_website_config
+    for_each = var.static_website_config == null ? [] : ["enabled"]
     content {
-      index_document     = lookup(static_website.value, "index_document", null)
-      error_404_document = lookup(static_website.value, "error_404_document", null)
+      index_document     = var.static_website_config.index_document
+      error_404_document = var.static_website_config.error_404_document
     }
   }
 

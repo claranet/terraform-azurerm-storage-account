@@ -1,5 +1,5 @@
 output "storage_account_properties" {
-  description = "Created storage account properties"
+  description = "Created Storage Account properties"
   value       = azurerm_storage_account.storage
 }
 
@@ -14,7 +14,7 @@ output "storage_account_name" {
 }
 
 output "storage_account_identity" {
-  description = "Created storage account Identity bloc"
+  description = "Created Storage Account identity block"
   value       = azurerm_storage_account.storage.identity
 }
 

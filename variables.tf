@@ -68,7 +68,7 @@ variable "min_tls_version" {
   default     = "TLS1_2"
 }
 
-variable "allow_nested_items_to_be_public" {
+variable "public_nested_items_allowed" {
   description = "Allow or disallow nested items within this Account to opt into being public."
   type        = bool
   default     = false
@@ -87,9 +87,12 @@ variable "use_subdomain" {
 }
 
 variable "static_website_config" {
-  description = "Static website configurations list. Map object should contains `index_document` and `error_404_document` attributes."
-  type        = list(map(string))
-  default     = []
+  description = "Static website configuration. Can only be set when the `account_kind` is set to `StorageV2` or `BlockBlobStorage`."
+  type = object({
+    index_document     = optional(string)
+    error_404_document = optional(string)
+  })
+  default = null
 }
 
 variable "shared_access_key_enabled" {

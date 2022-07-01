@@ -151,7 +151,6 @@ module "storage_account" {
 | account\_replication\_type | Defines the type of replication to use for this storage account. Valid options are `LRS`, `GRS`, `RAGRS`, `ZRS`, `GZRS` and `RAGZRS`. | `string` | `"ZRS"` | no |
 | account\_tier | Defines the Tier to use for this storage account. Valid options are `Standard` and `Premium`. For `BlockBlobStorage` and `FileStorage` accounts only `Premium` is valid. Changing this forces a new resource to be created. | `string` | `"Standard"` | no |
 | advanced\_threat\_protection\_enabled | Boolean flag which controls if advanced threat protection is enabled, see [documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
-| allow\_nested\_items\_to\_be\_public | Allow or disallow nested items within this Account to opt into being public. | `bool` | `false` | no |
 | allowed\_cidrs | List of CIDR to allow access to that storage account. | `list(string)` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | containers | List of objects to create some Blob containers in this Storage Account. | <pre>list(object({<br>    name                  = string<br>    container_access_type = optional(string)<br>    metadata              = optional(map(string))<br>  }))</pre> | `[]` | no |
@@ -177,11 +176,12 @@ module "storage_account" {
 | network\_bypass | Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None'. | `list(string)` | <pre>[<br>  "None"<br>]</pre> | no |
 | network\_rules\_enabled | Boolean to enable Network Rules on the Storage Account, requires `network_bypass`, `ip_rules`, `subnet_ids` or `default_firewall_action` correctly set if enabled. | `bool` | `true` | no |
 | nfsv3\_enabled | Is NFSv3 protocol enabled? Changing this forces a new resource to be created. | `bool` | `false` | no |
+| public\_nested\_items\_allowed | Allow or disallow nested items within this Account to opt into being public. | `bool` | `false` | no |
 | queues | List of objects to create some Queues in this Storage Account. | <pre>list(object({<br>    name     = string<br>    metadata = optional(map(string))<br>  }))</pre> | `[]` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | shared\_access\_key\_enabled | Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). | `bool` | `true` | no |
 | stack | Project stack name | `string` | n/a | yes |
-| static\_website\_config | Static website configurations list. Map object should contains `index_document` and `error_404_document` attributes. | `list(map(string))` | `[]` | no |
+| static\_website\_config | Static website configuration. Can only be set when the `account_kind` is set to `StorageV2` or `BlockBlobStorage`. | <pre>object({<br>    index_document     = optional(string)<br>    error_404_document = optional(string)<br>  })</pre> | `null` | no |
 | storage\_account\_custom\_name | Custom Azure Storage Account name, generated if not set | `string` | `""` | no |
 | storage\_blob\_data\_protection | Storage account blob Data protection parameters. | <pre>object({<br>    change_feed_enabled                       = bool<br>    versioning_enabled                        = bool<br>    delete_retention_policy_in_days           = number<br>    container_delete_retention_policy_in_days = number<br>    container_point_in_time_restore           = bool<br>  })</pre> | <pre>{<br>  "change_feed_enabled": true,<br>  "container_delete_retention_policy_in_days": 30,<br>  "container_point_in_time_restore": true,<br>  "delete_retention_policy_in_days": 30,<br>  "versioning_enabled": true<br>}</pre> | no |
 | subnet\_ids | Subnets to allow access to that storage account. | `list(string)` | `[]` | no |
@@ -194,10 +194,10 @@ module "storage_account" {
 | Name | Description |
 |------|-------------|
 | storage\_account\_id | Created storage account ID |
-| storage\_account\_identity | Created storage account Identity bloc |
+| storage\_account\_identity | Created Storage Account identity block |
 | storage\_account\_name | Created storage account name |
 | storage\_account\_network\_rules | Network rules of the associated Storage Account |
-| storage\_account\_properties | Created storage account properties |
+| storage\_account\_properties | Created Storage Account properties |
 | storage\_blob\_containers | Created blob containers in the Storage Account |
 | storage\_file\_queues | Created queues in the Storage Account |
 | storage\_file\_shares | Created file shares in the Storage Account |
