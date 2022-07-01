@@ -219,3 +219,12 @@ variable "tables" {
   }))
   default = []
 }
+
+variable "queues" {
+  description = "List of objects to create some Queues in this Storage Account."
+  type = list(object({
+    name     = string
+    metadata = optional(map(string))
+  }))
+  default = []
+}

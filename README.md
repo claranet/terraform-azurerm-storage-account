@@ -117,6 +117,7 @@ module "storage_account" {
 | [azurerm_storage_account.storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
 | [azurerm_storage_account_network_rules.network_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
 | [azurerm_storage_container.container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
+| [azurerm_storage_queue.queue](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_queue) | resource |
 | [azurerm_storage_share.share](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_share) | resource |
 | [azurerm_storage_table.table](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_table) | resource |
 
@@ -155,6 +156,7 @@ module "storage_account" {
 | network\_bypass | Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None'. | `list(string)` | <pre>[<br>  "None"<br>]</pre> | no |
 | network\_rules\_enabled | Boolean to enable Network Rules on the Storage Account, requires `network_bypass`, `ip_rules`, `subnet_ids` or `default_firewall_action` correctly set if enabled. | `bool` | `true` | no |
 | nfsv3\_enabled | Is NFSv3 protocol enabled? Changing this forces a new resource to be created. | `bool` | `false` | no |
+| queues | List of objects to create some Queues in this Storage Account. | <pre>list(object({<br>    name     = string<br>    metadata = optional(map(string))<br>  }))</pre> | `[]` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | shared\_access\_key\_enabled | Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). | `bool` | `true` | no |
 | stack | Project stack name | `string` | n/a | yes |
@@ -176,6 +178,7 @@ module "storage_account" {
 | storage\_account\_network\_rules | Network rules of the associated Storage Account |
 | storage\_account\_properties | Created storage account properties |
 | storage\_blob\_containers | Created blob containers in the Storage Account |
+| storage\_file\_queues | Created queues in the Storage Account |
 | storage\_file\_shares | Created file shares in the Storage Account |
 | storage\_file\_tables | Created tables in the Storage Account |
 <!-- END_TF_DOCS -->

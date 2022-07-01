@@ -35,5 +35,10 @@ output "storage_file_shares" {
 
 output "storage_file_tables" {
   description = "Created tables in the Storage Account"
-  value       = azurerm_storage_share.table
+  value       = azurerm_storage_table.table
+}
+
+output "storage_file_queues" {
+  description = "Created queues in the Storage Account"
+  value       = azurerm_storage_queue.queue
 }
