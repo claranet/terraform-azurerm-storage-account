@@ -56,9 +56,30 @@ module "storage_account" {
 
   containers = [
     {
-      name                  = "bloc1"
-      container_access_type = "private"
-      metadata              = null
+      name = "bloc1"
+    },
+    {
+      name                  = "bloc2"
+      container_access_type = "blob"
+    }
+  ]
+
+  file_shares = [
+    {
+      name        = "share1smb"
+      quota_in_gb = 50
+    }
+  ]
+
+  tables = [
+    {
+      name = "table1"
+    }
+  ]
+
+  queues = [
+    {
+      name = "mystoragequeue"
     }
   ]
 
