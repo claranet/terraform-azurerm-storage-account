@@ -4,7 +4,7 @@ resource "azurerm_storage_share" "share" {
   storage_account_name = azurerm_storage_account.storage.name
 
   name  = each.key
-  quota = each.value.quota
+  quota = each.value.quota_in_gb
 
   enabled_protocol = each.value.enabled_protocol
   metadata         = each.value.metadata

@@ -133,7 +133,7 @@ module "storage_account" {
 | allow\_nested\_items\_to\_be\_public | Allow or disallow nested items within this Account to opt into being public. | `bool` | `false` | no |
 | allowed\_cidrs | List of CIDR to allow access to that storage account. | `list(string)` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
-| containers | List of objects to create some Blob containers in this Storage Account. | <pre>list(object({<br>    name                  = string<br>    container_access_type = string<br>    metadata              = optional(map(string))<br>  }))</pre> | `[]` | no |
+| containers | List of objects to create some Blob containers in this Storage Account. | <pre>list(object({<br>    name                  = string<br>    container_access_type = optional(string)<br>    metadata              = optional(map(string))<br>  }))</pre> | `[]` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_domain\_name | The Custom Domain Name to use for the Storage Account, which will be validated by Azure. | `string` | `null` | no |
 | default\_firewall\_action | Which default firewalling policy to apply. Valid values are `Allow` or `Deny`. | `string` | `"Deny"` | no |

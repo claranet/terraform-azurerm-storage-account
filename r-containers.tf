@@ -4,6 +4,6 @@ resource "azurerm_storage_container" "container" {
   storage_account_name = azurerm_storage_account.storage.name
 
   name                  = each.key
-  container_access_type = each.value.container_access_type
+  container_access_type = coalesce(each.value.container_access_type, "private")
   metadata              = each.value.metadata
 }
