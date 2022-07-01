@@ -118,6 +118,7 @@ module "storage_account" {
 | [azurerm_storage_account_network_rules.network_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
 | [azurerm_storage_container.container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
 | [azurerm_storage_share.share](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_share) | resource |
+| [azurerm_storage_table.table](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_table) | resource |
 
 ## Inputs
 
@@ -161,6 +162,7 @@ module "storage_account" {
 | storage\_account\_custom\_name | Custom Azure Storage Account name, generated if not set | `string` | `""` | no |
 | storage\_blob\_data\_protection | Storage account blob Data protection parameters. | <pre>object({<br>    change_feed_enabled                       = bool<br>    versioning_enabled                        = bool<br>    delete_retention_policy_in_days           = number<br>    container_delete_retention_policy_in_days = number<br>    container_point_in_time_restore           = bool<br>  })</pre> | <pre>{<br>  "change_feed_enabled": true,<br>  "container_delete_retention_policy_in_days": 30,<br>  "container_point_in_time_restore": true,<br>  "delete_retention_policy_in_days": 30,<br>  "versioning_enabled": true<br>}</pre> | no |
 | subnet\_ids | Subnets to allow access to that storage account. | `list(string)` | `[]` | no |
+| tables | List of objects to create some Tables in this Storage Account. | <pre>list(object({<br>    name = string<br>    acl = optional(list(object({<br>      id          = string<br>      permissions = string<br>      start       = optional(string)<br>      expiry      = optional(string)<br>    })))<br>  }))</pre> | `[]` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `storage_account_custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_subdomain | Should the Custom Domain Name be validated by using indirect CNAME validation? | `bool` | `false` | no |
 
@@ -174,5 +176,6 @@ module "storage_account" {
 | storage\_account\_network\_rules | Network rules of the associated Storage Account |
 | storage\_account\_properties | Created storage account properties |
 | storage\_blob\_containers | Created blob containers in the Storage Account |
-| storage\_file\_shares | Create file shares in the Storage Account |
+| storage\_file\_shares | Created file shares in the Storage Account |
+| storage\_file\_tables | Created tables in the Storage Account |
 <!-- END_TF_DOCS -->

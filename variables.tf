@@ -205,3 +205,17 @@ variable "file_shares" {
   }))
   default = []
 }
+
+variable "tables" {
+  description = "List of objects to create some Tables in this Storage Account."
+  type = list(object({
+    name = string
+    acl = optional(list(object({
+      id          = string
+      permissions = string
+      start       = optional(string)
+      expiry      = optional(string)
+    })))
+  }))
+  default = []
+}

@@ -29,6 +29,11 @@ output "storage_blob_containers" {
 }
 
 output "storage_file_shares" {
-  description = "Create file shares in the Storage Account"
+  description = "Created file shares in the Storage Account"
   value       = azurerm_storage_share.share
+}
+
+output "storage_file_tables" {
+  description = "Created tables in the Storage Account"
+  value       = azurerm_storage_share.table
 }
