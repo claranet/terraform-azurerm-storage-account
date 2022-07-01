@@ -2,7 +2,7 @@
 # This feature is not yet supported by the AzureRM provider.
 # https://github.com/hashicorp/terraform-provider-azurerm/issues/9020
 resource "azapi_update_resource" "sa_pitr" {
-  for_each = toset(var.storage_blob_data_protection != null && var.storage_blob_data_protection.container_delete_retention_policy_in_days > 2 && var.storage_blob_data_protection.container_point_in_time_restore ? ["enabled"] : [])
+  for_each = toset(local.storage_blob_data_protection.container_point_in_time_restore && local.storage_blob_data_protection.container_delete_retention_policy_in_days > 2 ? ["enabled"] : [])
 
   type      = "Microsoft.Storage/storageAccounts/blobServices@2021-09-01"
   parent_id = azurerm_storage_account.storage.id
@@ -12,7 +12,7 @@ resource "azapi_update_resource" "sa_pitr" {
     properties = {
       restorePolicy = {
         enabled = true
-        days    = var.storage_blob_data_protection != null ? var.storage_blob_data_protection.container_delete_retention_policy_in_days - 1 : 0
+        days    = local.storage_blob_data_protection.container_delete_retention_policy_in_days - 1
       }
     }
   })
