@@ -1,35 +1,44 @@
-output "storage_account_storage_primary_connection_string" {
-  value = azurerm_storage_account.storage.primary_connection_string
+output "storage_account_properties" {
+  description = "Created Storage Account properties"
+  value       = azurerm_storage_account.storage
 }
 
-output "storage_account_storage_primary_access_key" {
-  value = azurerm_storage_account.storage.primary_access_key
+output "storage_account_id" {
+  description = "Created storage account ID"
+  value       = azurerm_storage_account.storage.id
 }
 
-output "storage_account_storage_secondary_connection_string" {
-  value = azurerm_storage_account.storage.secondary_connection_string
+output "storage_account_name" {
+  description = "Created storage account name"
+  value       = azurerm_storage_account.storage.name
 }
 
-output "name" {
-  value = azurerm_storage_account.storage.name
+output "storage_account_identity" {
+  description = "Created Storage Account identity block"
+  value       = azurerm_storage_account.storage.identity
 }
 
-output "primary_blob_endpoint" {
-  value = azurerm_storage_account.storage.primary_blob_endpoint
+output "storage_account_network_rules" {
+  description = "Network rules of the associated Storage Account"
+  value       = one(azurerm_storage_account_network_rules.network_rules[*])
 }
 
-output "secondary_blob_endpoint" {
-  value = azurerm_storage_account.storage.secondary_blob_endpoint
+output "storage_blob_containers" {
+  description = "Created blob containers in the Storage Account"
+  value       = azurerm_storage_container.container
 }
 
-output "resource_group_name" {
-  value = var.resource_group_name
+output "storage_file_shares" {
+  description = "Created file shares in the Storage Account"
+  value       = azurerm_storage_share.share
 }
 
-output "id" {
-  value = azurerm_storage_account.storage.id
+output "storage_file_tables" {
+  description = "Created tables in the Storage Account"
+  value       = azurerm_storage_table.table
 }
 
-output "storage_account_containers" {
-  value = azurerm_storage_container.container.name
+output "storage_file_queues" {
+  description = "Created queues in the Storage Account"
+  value       = azurerm_storage_queue.queue
 }
