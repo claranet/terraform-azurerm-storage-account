@@ -1,4 +1,4 @@
-# Unreleased
+# v6.0.0 - 2022-08-05
 
 Added
   * AZ-130: Module Azure storage account - first release
