@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-820: Add `is_hns_enabled` parameter
+
 # v6.0.0 - 2022-08-05
 
 Added

@@ -13,6 +13,7 @@ resource "azurerm_storage_account" "storage" {
   allow_nested_items_to_be_public = var.public_nested_items_allowed
   shared_access_key_enabled       = var.shared_access_key_enabled
   nfsv3_enabled                   = var.nfsv3_enabled
+  is_hns_enabled                  = var.hns_enabled
   large_file_share_enabled        = true
 
   dynamic "identity" {
