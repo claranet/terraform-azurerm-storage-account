@@ -8,12 +8,12 @@ resource "azurerm_storage_account" "storage" {
   account_kind             = var.account_kind
   account_replication_type = var.account_replication_type
 
-  enable_https_traffic_only       = var.https_traffic_only_enabled
   min_tls_version                 = var.min_tls_version
   allow_nested_items_to_be_public = var.public_nested_items_allowed
   shared_access_key_enabled       = var.shared_access_key_enabled
   nfsv3_enabled                   = var.nfsv3_enabled
-  is_hns_enabled                  = var.hns_enabled
+  enable_https_traffic_only       = var.nfsv3_enabled ? false : var.https_traffic_only_enabled
+  is_hns_enabled                  = var.nfsv3_enabled ? true : var.hns_enabled
   large_file_share_enabled        = true
 
   dynamic "identity" {
@@ -41,7 +41,7 @@ resource "azurerm_storage_account" "storage" {
   }
 
   dynamic "blob_properties" {
-    for_each = var.storage_blob_data_protection != null ? ["enabled"] : []
+    for_each = var.storage_blob_data_protection != null && !var.nfsv3_enabled ? ["enabled"] : []
 
     content {
       change_feed_enabled = var.storage_blob_data_protection.change_feed_enabled
@@ -58,6 +58,16 @@ resource "azurerm_storage_account" "storage" {
           days = var.storage_blob_data_protection.container_delete_retention_policy_in_days
         }
       }
+    }
+  }
+
+  dynamic "network_rules" {
+    for_each = var.nfsv3_enabled ? ["enabled"] : []
+    content {
+      default_action             = "Deny"
+      bypass                     = var.network_bypass
+      ip_rules                   = local.storage_ip_rules
+      virtual_network_subnet_ids = var.subnet_ids
     }
   }
 

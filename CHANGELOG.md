@@ -3,6 +3,9 @@
 Added
   * AZ-820: Add `is_hns_enabled` parameter
 
+Fixed
+  * AZ-823: Fix NFS 3.0 support with Blob Storage
+
 # v6.0.0 - 2022-08-05
 
 Added
