@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-836: Fix `large_file_share_enabled` parameter when `account_kind = "BlockBlobStorage"`
+
 # v6.1.0 - 2022-08-12
 
 Added
