@@ -6,6 +6,9 @@ Added
 Changed
   * AZ-839: Bump `diagnostics` module
 
+Breaking
+  * AZ-840: Upgrade to Terraform 1.3+
+
 # v6.1.1 - 2022-09-02
 
 Fixed
