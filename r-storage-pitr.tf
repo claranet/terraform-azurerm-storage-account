@@ -3,8 +3,8 @@
 # https://github.com/hashicorp/terraform-provider-azurerm/issues/9020
 resource "azapi_update_resource" "sa_pitr" {
   for_each = toset(
-    local.storage_blob_data_protection.container_point_in_time_restore
-    && local.storage_blob_data_protection.container_delete_retention_policy_in_days > 2
+    var.storage_blob_data_protection.container_point_in_time_restore
+    && var.storage_blob_data_protection.container_delete_retention_policy_in_days > 2
     && !var.nfsv3_enabled ? ["enabled"] : []
   )
 
@@ -16,7 +16,7 @@ resource "azapi_update_resource" "sa_pitr" {
     properties = {
       restorePolicy = {
         enabled = true
-        days    = local.storage_blob_data_protection.container_delete_retention_policy_in_days - 1
+        days    = var.storage_blob_data_protection.container_delete_retention_policy_in_days - 1
       }
     }
   })
