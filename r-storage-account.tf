@@ -41,21 +41,38 @@ resource "azurerm_storage_account" "storage" {
   }
 
   dynamic "blob_properties" {
-    for_each = var.storage_blob_data_protection != null && !var.nfsv3_enabled ? ["enabled"] : []
+    for_each = (
+      !var.nfsv3_enabled &&
+      var.storage_blob_data_protection != null
+      || var.storage_blob_cors_rule != null
+    ) ? ["enabled"] : []
 
     content {
-      change_feed_enabled = var.storage_blob_data_protection.change_feed_enabled
-      versioning_enabled  = var.storage_blob_data_protection.versioning_enabled
-      dynamic "delete_retention_policy" {
-        for_each = var.storage_blob_data_protection.delete_retention_policy_in_days > 0 ? ["enabled"] : []
+      change_feed_enabled = local.storage_blob_data_protection.change_feed_enabled
+      versioning_enabled  = local.storage_blob_data_protection.versioning_enabled
+
+      dynamic "cors_rule" {
+        for_each = var.storage_blob_cors_rule != null ? ["enabled"] : []
         content {
-          days = var.storage_blob_data_protection.delete_retention_policy_in_days
+          allowed_headers    = var.storage_blob_cors_rule.allowed_headers
+          allowed_methods    = var.storage_blob_cors_rule.allowed_methods
+          allowed_origins    = var.storage_blob_cors_rule.allowed_origins
+          exposed_headers    = var.storage_blob_cors_rule.exposed_headers
+          max_age_in_seconds = var.storage_blob_cors_rule.max_age_in_seconds
         }
       }
-      dynamic "container_delete_retention_policy" {
-        for_each = var.storage_blob_data_protection.container_delete_retention_policy_in_days > 0 ? ["enabled"] : []
+
+      dynamic "delete_retention_policy" {
+        for_each = local.storage_blob_data_protection.delete_retention_policy_in_days > 0 ? ["enabled"] : []
         content {
-          days = var.storage_blob_data_protection.container_delete_retention_policy_in_days
+          days = local.storage_blob_data_protection.delete_retention_policy_in_days
+        }
+      }
+
+      dynamic "container_delete_retention_policy" {
+        for_each = local.storage_blob_data_protection.container_delete_retention_policy_in_days > 0 ? ["enabled"] : []
+        content {
+          days = local.storage_blob_data_protection.container_delete_retention_policy_in_days
         }
       }
     }

@@ -178,6 +178,18 @@ variable "storage_blob_data_protection" {
   }
 }
 
+variable "storage_blob_cors_rule" {
+  description = "Storage account blob cors rule. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information."
+  type = object({
+    allowed_headers    = list(string)
+    allowed_methods    = list(string)
+    allowed_origins    = list(string)
+    exposed_headers    = list(string)
+    max_age_in_seconds = number
+  })
+  default = null
+}
+
 # Threat protection
 variable "advanced_threat_protection_enabled" {
   description = "Boolean flag which controls if advanced threat protection is enabled, see [documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."

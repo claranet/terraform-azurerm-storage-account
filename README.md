@@ -73,6 +73,15 @@ module "storage_account" {
     container_point_in_time_restore           = true
   }
 
+  # disabled by default
+  storage_blob_cors_rule = {
+    allowed_headers    = ["*"]
+    allowed_methods    = ["GET", "HEAD"]
+    allowed_origins    = ["https://example.com"]
+    exposed_headers    = ["*"]
+    max_age_in_seconds = 3600
+  }
+
   logs_destinations_ids = [
     module.logs.logs_storage_account_id,
     module.logs.log_analytics_workspace_id
