@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * [GH-1](https://github.com/claranet/terraform-azurerm-storage-account/pull/1/): Add CORS rules option
+
 # v6.1.1 - 2022-09-02
 
 Fixed

@@ -179,7 +179,7 @@ variable "storage_blob_data_protection" {
 }
 
 variable "storage_blob_cors_rule" {
-  description = "Storage account blob cors rule. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information."
+  description = "Storage Account blob CORS rule. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information."
   type = object({
     allowed_headers    = list(string)
     allowed_methods    = list(string)
