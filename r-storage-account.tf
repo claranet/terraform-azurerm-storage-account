@@ -42,8 +42,7 @@ resource "azurerm_storage_account" "storage" {
 
   dynamic "blob_properties" {
     for_each = (
-      !var.nfsv3_enabled &&
-      var.storage_blob_data_protection != null
+      (!var.nfsv3_enabled && var.storage_blob_data_protection != null)
       || var.storage_blob_cors_rule != null
     ) ? ["enabled"] : []
 
