@@ -129,14 +129,14 @@ module "storage_account" {
 |------|---------|
 | azapi | ~> 0.1 |
 | azurecaf | ~> 1.1 |
-| azurerm | ~> 3.0 |
+| azurerm | ~> 3.22 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| diagnostics | claranet/diagnostic-settings/azurerm | 5.0.0 |
-| diagnostics\_type | claranet/diagnostic-settings/azurerm | 5.0.0 |
+| diagnostics | claranet/diagnostic-settings/azurerm | 6.0.0 |
+| diagnostics\_type | claranet/diagnostic-settings/azurerm | 6.0.0 |
 
 ## Resources
 

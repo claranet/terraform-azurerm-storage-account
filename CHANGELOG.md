@@ -3,6 +3,9 @@
 Added
   * [GH-1](https://github.com/claranet/terraform-azurerm-storage-account/pull/1/): Add CORS rules option
 
+Changed
+  * AZ-839: Bump `diagnostics` module
+
 # v6.1.1 - 2022-09-02
 
 Fixed
