@@ -163,11 +163,11 @@ variable "default_firewall_action" {
 variable "storage_blob_data_protection" {
   description = "Storage account blob Data protection parameters."
   type = object({
-    change_feed_enabled                       = optional(bool, false)
-    versioning_enabled                        = optional(bool, false)
-    delete_retention_policy_in_days           = optional(number, 0)
-    container_delete_retention_policy_in_days = optional(number, 0)
-    container_point_in_time_restore           = optional(bool, false)
+    change_feed_enabled                       = optional(bool)
+    versioning_enabled                        = optional(bool)
+    delete_retention_policy_in_days           = optional(number)
+    container_delete_retention_policy_in_days = optional(number)
+    container_point_in_time_restore           = optional(bool)
   })
   default = {
     change_feed_enabled                       = true
