@@ -1,3 +1,11 @@
+# Unreleased
+
+Breaking
+  * AZ-840: Upgrade to Terraform 1.3+
+
+Changed
+  * AZ-839: Bump `diagnostics` module
+
 # v6.2.0 - 2022-09-16
 
 Added
