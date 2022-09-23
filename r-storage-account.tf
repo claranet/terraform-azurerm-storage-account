@@ -47,8 +47,8 @@ resource "azurerm_storage_account" "storage" {
     ) ? ["enabled"] : []
 
     content {
-      change_feed_enabled = local.storage_blob_data_protection.change_feed_enabled
-      versioning_enabled  = local.storage_blob_data_protection.versioning_enabled
+      change_feed_enabled = var.storage_blob_data_protection.change_feed_enabled
+      versioning_enabled  = var.storage_blob_data_protection.versioning_enabled
 
       dynamic "cors_rule" {
         for_each = var.storage_blob_cors_rule != null ? ["enabled"] : []
@@ -62,16 +62,16 @@ resource "azurerm_storage_account" "storage" {
       }
 
       dynamic "delete_retention_policy" {
-        for_each = local.storage_blob_data_protection.delete_retention_policy_in_days > 0 ? ["enabled"] : []
+        for_each = var.storage_blob_data_protection.delete_retention_policy_in_days > 0 ? ["enabled"] : []
         content {
-          days = local.storage_blob_data_protection.delete_retention_policy_in_days
+          days = var.storage_blob_data_protection.delete_retention_policy_in_days
         }
       }
 
       dynamic "container_delete_retention_policy" {
-        for_each = local.storage_blob_data_protection.container_delete_retention_policy_in_days > 0 ? ["enabled"] : []
+        for_each = var.storage_blob_data_protection.container_delete_retention_policy_in_days > 0 ? ["enabled"] : []
         content {
-          days = local.storage_blob_data_protection.container_delete_retention_policy_in_days
+          days = var.storage_blob_data_protection.container_delete_retention_policy_in_days
         }
       }
     }
