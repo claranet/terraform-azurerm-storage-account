@@ -74,6 +74,19 @@ resource "azurerm_storage_account" "storage" {
     }
   }
 
+  dynamic "queue_properties" {
+    for_each = var.queue_properties_logging != null ? ["enabled"] : []
+    content {
+      logging {
+        delete                = var.queue_properties_logging.delete
+        read                  = var.queue_properties_logging.read
+        write                 = var.queue_properties_logging.write
+        version               = var.queue_properties_logging.version
+        retention_policy_days = var.queue_properties_logging.retention_policy_days
+      }
+    }
+  }
+
   dynamic "network_rules" {
     for_each = var.nfsv3_enabled ? ["enabled"] : []
     content {
