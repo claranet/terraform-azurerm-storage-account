@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-865: Fix Soft Delete for NFS 3.0 with Blob Storage
+
 # v7.0.0 - 2022-09-23
 
 Breaking
