@@ -41,7 +41,10 @@ resource "azurerm_storage_account" "storage" {
   }
 
   dynamic "blob_properties" {
-    for_each = var.storage_blob_data_protection != null || var.storage_blob_cors_rule != null ? ["enabled"] : []
+    for_each = (
+      var.account_kind != "FileStorage" && (var.storage_blob_data_protection != null || var.storage_blob_cors_rule != null) ?
+      ["enabled"] : []
+    )
 
     content {
       change_feed_enabled = var.nfsv3_enabled ? false : var.storage_blob_data_protection.change_feed_enabled
