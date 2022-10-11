@@ -248,3 +248,15 @@ variable "queues" {
   }))
   default = []
 }
+
+variable "queue_properties_logging" {
+  description = "Logging queue properties"
+  type = object({
+    delete                = optional(bool, true)
+    read                  = optional(bool, true)
+    write                 = optional(bool, true)
+    version               = optional(string, "1.0")
+    retention_policy_days = optional(number, 10)
+  })
+  default = {}
+}

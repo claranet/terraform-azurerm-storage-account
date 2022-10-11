@@ -63,6 +63,15 @@ module "storage_account" {
     module.logs.log_analytics_workspace_id
   ]
 
+  # Set by default
+  queue_properties_logging = {
+    delete                = true
+    read                  = true
+    write                 = true
+    version               = "1.0"
+    retention_policy_days = 10
+  }
+
   containers = [
     {
       name = "bloc1"
