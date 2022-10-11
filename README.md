@@ -88,6 +88,15 @@ module "storage_account" {
     module.logs.log_analytics_workspace_id
   ]
 
+  # Set by default
+  queue_properties_logging = {
+    delete                = true
+    read                  = true
+    write                 = true
+    version               = "1.0"
+    retention_policy_days = 10
+  }
+
   containers = [
     {
       name = "bloc1"
@@ -188,6 +197,7 @@ module "storage_account" {
 | network\_rules\_enabled | Boolean to enable Network Rules on the Storage Account, requires `network_bypass`, `ip_rules`, `subnet_ids` or `default_firewall_action` correctly set if enabled. | `bool` | `true` | no |
 | nfsv3\_enabled | Is NFSv3 protocol enabled? Changing this forces a new resource to be created. | `bool` | `false` | no |
 | public\_nested\_items\_allowed | Allow or disallow nested items within this Account to opt into being public. | `bool` | `false` | no |
+| queue\_properties\_logging | Logging queue properties | <pre>object({<br>    delete                = optional(bool, true)<br>    read                  = optional(bool, true)<br>    write                 = optional(bool, true)<br>    version               = optional(string, "1.0")<br>    retention_policy_days = optional(number, 10)<br>  })</pre> | `{}` | no |
 | queues | List of objects to create some Queues in this Storage Account. | <pre>list(object({<br>    name     = string<br>    metadata = optional(map(string))<br>  }))</pre> | `[]` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | shared\_access\_key\_enabled | Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). | `bool` | `true` | no |

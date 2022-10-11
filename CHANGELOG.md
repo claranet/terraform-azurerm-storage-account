@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * [GH-2](https://github.com/claranet/terraform-azurerm-storage-account/pull/2): Enable logging for Queue Services
+
 # v7.0.1 - 2022-10-07
 
 Fixed
