@@ -5,7 +5,7 @@ variable "default_tags_enabled" {
 }
 
 variable "extra_tags" {
-  description = "Additional tags to associate with your Azure Container Registry."
+  description = "Additional tags to associate with your Azure Storage Account."
   type        = map(string)
   default     = {}
 }
