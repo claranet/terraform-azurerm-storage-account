@@ -287,7 +287,7 @@ variable "file_share_properties_smb" {
     authentication_types            = optional(list(string), null)
     kerberos_ticket_encryption_type = optional(list(string), null)
     channel_encryption_type         = optional(list(string), null)
-    multichannel_enabled            = optional(string, null)
+    multichannel_enabled            = optional(bool, null)
   })
   default = null
 }
