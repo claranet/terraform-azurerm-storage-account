@@ -4,12 +4,12 @@ output "storage_account_properties" {
 }
 
 output "storage_account_id" {
-  description = "Created storage account ID"
+  description = "Created Storage Account ID"
   value       = azurerm_storage_account.storage.id
 }
 
 output "storage_account_name" {
-  description = "Created storage account name"
+  description = "Created Storage Account name"
   value       = azurerm_storage_account.storage.name
 }
 

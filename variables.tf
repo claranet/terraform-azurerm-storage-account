@@ -39,7 +39,7 @@ variable "account_kind" {
 }
 
 variable "account_tier" {
-  description = "Defines the Tier to use for this storage account. Valid options are `Standard` and `Premium`. For `BlockBlobStorage` and `FileStorage` accounts only `Premium` is valid. Changing this forces a new resource to be created."
+  description = "Defines the Tier to use for this Storage Account. Valid options are `Standard` and `Premium`. For `BlockBlobStorage` and `FileStorage` accounts only `Premium` is valid. Changing this forces a new resource to be created."
   type        = string
   default     = "Standard"
 }
@@ -51,7 +51,7 @@ variable "access_tier" {
 }
 
 variable "account_replication_type" {
-  description = "Defines the type of replication to use for this storage account. Valid options are `LRS`, `GRS`, `RAGRS`, `ZRS`, `GZRS` and `RAGZRS`."
+  description = "Defines the type of replication to use for this Storage Account. Valid options are `LRS`, `GRS`, `RAGRS`, `ZRS`, `GZRS` and `RAGZRS`."
   type        = string
   default     = "ZRS"
 }
@@ -63,7 +63,7 @@ variable "https_traffic_only_enabled" {
 }
 
 variable "min_tls_version" {
-  description = "The minimum supported TLS version for the storage account. Possible values are `TLS1_0`, `TLS1_1`, and `TLS1_2`. "
+  description = "The minimum supported TLS version for the Storage Account. Possible values are `TLS1_0`, `TLS1_1`, and `TLS1_2`. "
   type        = string
   default     = "TLS1_2"
 }
@@ -96,7 +96,7 @@ variable "static_website_config" {
 }
 
 variable "shared_access_key_enabled" {
-  description = "Indicates whether the storage account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD)."
+  description = "Indicates whether the Storage Account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD)."
   type        = bool
   default     = true
 }
@@ -129,7 +129,7 @@ variable "identity_ids" {
 # Storage Firewall
 
 variable "network_rules_enabled" {
-  description = "Boolean to enable Network Rules on the Storage Account, requires `network_bypass`, `ip_rules`, `subnet_ids` or `default_firewall_action` correctly set if enabled."
+  description = "Boolean to enable Network Rules on the Storage Account, requires `network_bypass`, `allowed_cidrs`, `subnet_ids` or `default_firewall_action` correctly set if enabled."
   type        = bool
   default     = true
 }
@@ -141,13 +141,13 @@ variable "network_bypass" {
 }
 
 variable "allowed_cidrs" {
-  description = "List of CIDR to allow access to that storage account."
+  description = "List of CIDR to allow access to that Storage Account."
   type        = list(string)
   default     = []
 }
 
 variable "subnet_ids" {
-  description = "Subnets to allow access to that storage account."
+  description = "Subnets to allow access to that Storage Account."
   type        = list(string)
   default     = []
 }
@@ -191,6 +191,7 @@ variable "storage_blob_cors_rule" {
 }
 
 # Threat protection
+
 variable "advanced_threat_protection_enabled" {
   description = "Boolean flag which controls if advanced threat protection is enabled, see [documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."
   type        = bool
@@ -259,4 +260,34 @@ variable "queue_properties_logging" {
     retention_policy_days = optional(number, 10)
   })
   default = {}
+}
+
+variable "file_share_cors_rules" {
+  description = "Storage Account file shares CORS rule. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information."
+  type = object({
+    allowed_headers    = list(string)
+    allowed_methods    = list(string)
+    allowed_origins    = list(string)
+    exposed_headers    = list(string)
+    max_age_in_seconds = number
+  })
+  default = null
+}
+
+variable "file_share_retention_policy_in_days" {
+  description = "Storage Account file shares retention policy in days."
+  type        = number
+  default     = null
+}
+
+variable "file_share_properties_smb" {
+  description = "Storage Account file shares smb properties."
+  type = object({
+    versions                        = optional(list(string), null)
+    authentication_types            = optional(list(string), null)
+    kerberos_ticket_encryption_type = optional(list(string), null)
+    channel_encryption_type         = optional(list(string), null)
+    multichannel_enabled            = optional(bool, null)
+  })
+  default = null
 }

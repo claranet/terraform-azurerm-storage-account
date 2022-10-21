@@ -2,6 +2,10 @@
 
 Added
   * [GH-2](https://github.com/claranet/terraform-azurerm-storage-account/pull/2): Enable logging for Queue Services
+  * AZ-869: Add file share properties related variables
+
+Changed
+  * AZ-846: Bump diagnostic settings module version
 
 Fixed
   * AZ-869: Fix PITR & blob data protection conditions

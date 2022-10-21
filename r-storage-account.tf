@@ -90,6 +90,40 @@ resource "azurerm_storage_account" "storage" {
     }
   }
 
+  dynamic "share_properties" {
+    for_each = var.file_share_cors_rules != null || var.file_share_retention_policy_in_days != null || var.file_share_properties_smb != null ? ["enabled"] : []
+    content {
+      dynamic "cors_rule" {
+        for_each = var.file_share_cors_rules != null ? ["enabled"] : []
+        content {
+          allowed_headers    = var.file_share_cors_rules.allowed_headers
+          allowed_methods    = var.file_share_cors_rules.allowed_methods
+          allowed_origins    = var.file_share_cors_rules.allowed_origins
+          exposed_headers    = var.file_share_cors_rules.exposed_headers
+          max_age_in_seconds = var.file_share_cors_rules.max_age_in_seconds
+        }
+      }
+
+      dynamic "retention_policy" {
+        for_each = var.file_share_retention_policy_in_days != null ? ["enabled"] : []
+        content {
+          days = var.file_share_retention_policy_in_days
+        }
+      }
+
+      dynamic "smb" {
+        for_each = var.file_share_properties_smb != null ? ["enabled"] : []
+        content {
+          authentication_types            = var.file_share_properties_smb.authentication_types
+          channel_encryption_type         = var.file_share_properties_smb.channel_encryption_type
+          kerberos_ticket_encryption_type = var.file_share_properties_smb.kerberos_ticket_encryption_type
+          versions                        = var.file_share_properties_smb.versions
+          multichannel_enabled            = var.file_share_properties_smb.multichannel_enabled
+        }
+      }
+    }
+  }
+
   dynamic "network_rules" {
     for_each = var.nfsv3_enabled ? ["enabled"] : []
     content {

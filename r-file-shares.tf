@@ -22,4 +22,11 @@ resource "azurerm_storage_share" "share" {
       }
     }
   }
+
+  lifecycle {
+    precondition {
+      condition     = each.value.enabled_protocol == "NFS" ? var.account_tier == "Premium" : true
+      error_message = "NFS file shares can only be enabled on Premium Storage Accounts."
+    }
+  }
 }
