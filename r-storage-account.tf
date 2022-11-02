@@ -124,6 +124,25 @@ resource "azurerm_storage_account" "storage" {
     }
   }
 
+  dynamic "azure_files_authentication" {
+    for_each = var.file_share_authentication != null ? ["enabled"] : []
+    content {
+      directory_type = var.file_share_authentication.directory_type
+      dynamic "active_directory" {
+        for_each = var.file_share_authentication.directory_type == "AD" ? [var.file_share_authentication.active_directory] : []
+        iterator = ad
+        content {
+          storage_sid         = ad.value.storage_sid
+          domain_name         = ad.value.domain_name
+          domain_sid          = ad.value.domain_sid
+          domain_guid         = ad.value.domain_guid
+          forest_name         = ad.value.forest_name
+          netbios_domain_name = ad.value.netbios_domain_name
+        }
+      }
+    }
+  }
+
   dynamic "network_rules" {
     for_each = var.nfsv3_enabled ? ["enabled"] : []
     content {
