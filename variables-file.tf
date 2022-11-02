@@ -44,7 +44,12 @@ variable "file_share_authentication" {
   default = null
 
   validation {
-    condition     = var.file_share_authentication == null || var.file_share_authentication.directory_type == "AADDS" || (var.file_share_authentication.directory_type == "AD" && var.file_share_authentication.active_directory != null)
+    condition = var.file_share_authentication == null || (
+      try(var.file_share_authentication.directory_type, null) == "AADDS" || (
+        try(var.file_share_authentication.directory_type, null) == "AD" &&
+        try(var.file_share_authentication.active_directory, null) != null
+      )
+    )
     error_message = "`file_share_authentication.directory_type` can only be `AADDS` or `AD`. `file_share_authentication.active_directory` block is required when `file_share_authentication.directory_type` is set to `AD`."
   }
 }
