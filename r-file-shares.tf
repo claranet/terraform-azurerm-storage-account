@@ -1,5 +1,5 @@
 resource "azurerm_storage_share" "share" {
-  for_each = { for s in var.file_shares : s.name => s }
+  for_each = try({ for s in var.file_shares : s.name => s }, {})
 
   storage_account_name = azurerm_storage_account.storage.name
 
