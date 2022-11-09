@@ -5,6 +5,7 @@ Fixed
 
 Changed
   * AZ-130: Module code improvements, bump `diagnostics` module for sub-entities
+  * AZ-130: `network_bypass` is now set to `'Logging', 'Metrics', 'AzureServices'` by default
 
 # v7.1.0 - 2022-10-21
 
