@@ -89,6 +89,10 @@ module "storage_account" {
     }
   ]
 
+  file_share_authentication = {
+    directory_type = "AADDS"
+  }
+
   tables = [
     {
       name = "table1"
