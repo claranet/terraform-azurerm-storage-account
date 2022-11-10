@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * [GH-2](https://github.com/claranet/terraform-azurerm-storage-account/pull/2): Enable logging only if queues are used/created
+
 # v7.1.0 - 2022-10-21
 
 Added
