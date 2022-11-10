@@ -78,7 +78,7 @@ resource "azurerm_storage_account" "storage" {
   }
 
   dynamic "queue_properties" {
-    for_each = var.queue_properties_logging != null && try(length(var.queues), 0) > 0 ? ["enabled"] : []
+    for_each = var.queue_properties_logging != null && contains(["Storage", "StorageV2"], var.account_kind) ? ["enabled"] : []
     content {
       logging {
         delete                = var.queue_properties_logging.delete
