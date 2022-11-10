@@ -3,6 +3,10 @@
 Fixed
   * [GH-2](https://github.com/claranet/terraform-azurerm-storage-account/pull/2): Enable logging only if queues are used/created
 
+Changed
+  * AZ-130: Module code improvements, bump `diagnostics` module for sub-entities
+  * AZ-130: `network_bypass` is now set to `'Logging', 'Metrics', 'AzureServices'` by default
+
 # v7.1.0 - 2022-10-21
 
 Added
