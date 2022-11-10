@@ -144,7 +144,7 @@ module "storage_account" {
 
 | Name | Version |
 |------|---------|
-| azapi | ~> 0.1 |
+| azapi | ~> 1.0 |
 | azurecaf | ~> 1.2, >= 1.2.22 |
 | azurerm | ~> 3.25 |
 
