@@ -4,7 +4,7 @@ Changed
   * AZ-908: Use the new data source for CAF naming (instead of resource)
 
 Added
-  * AZ-871: Add Azure File authentication block (AD/AADDS)
+  * AZ-891: Add Azure File authentication block (AD/AADDS)
 
 # v7.2.0 - 2022-11-10
 
