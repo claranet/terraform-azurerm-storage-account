@@ -1,7 +1,10 @@
-# Unreleased
+# v7.3.0 - 2022-11-24
 
 Changed
   * AZ-908: Use the new data source for CAF naming (instead of resource)
+
+Added
+  * AZ-871: Add Azure File authentication block (AD/AADDS)
 
 # v7.2.0 - 2022-11-10
 
@@ -11,9 +14,6 @@ Fixed
 Changed
   * AZ-130: Module code improvements, bump `diagnostics` module for sub-entities
   * AZ-130: `network_bypass` is now set to `'Logging', 'Metrics', 'AzureServices'` by default
-
-Added
-  * AZ-871: Add Azure File authentication block (AD/AADDS)
 
 # v7.1.0 - 2022-10-21
 
