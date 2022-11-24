@@ -12,6 +12,9 @@ Changed
   * AZ-130: Module code improvements, bump `diagnostics` module for sub-entities
   * AZ-130: `network_bypass` is now set to `'Logging', 'Metrics', 'AzureServices'` by default
 
+Added
+  * AZ-871: Add Azure File authentication block (AD/AADDS)
+
 # v7.1.0 - 2022-10-21
 
 Added
