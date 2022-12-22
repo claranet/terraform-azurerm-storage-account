@@ -76,9 +76,7 @@ resource "azurerm_storage_account" "storage" {
       }
 
       dynamic "restore_policy" {
-        for_each = alltrue([
-          for k, v in var.storage_blob_data_protection : try(tobool(v), k == "delete_retention_policy_in_days" ? v > 0 : v > 2)
-        ]) && !var.nfsv3_enabled ? ["enabled"] : []
+        for_each = local.pitr_enabled ? ["enabled"] : []
         content {
           days = var.storage_blob_data_protection.container_delete_retention_policy_in_days - 1
         }
