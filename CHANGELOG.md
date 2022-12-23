@@ -1,4 +1,4 @@
-# Unreleased
+# v7.4.0 - 2022-12-23
 
 Fixed
   * AZ-964: Fix permanent drift since support for the `blob_properties.restore_policy` property (point-in-time restore) in the Terraform provider AzureRM `v3.36.0`
