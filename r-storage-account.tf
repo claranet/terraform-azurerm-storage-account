@@ -74,6 +74,13 @@ resource "azurerm_storage_account" "storage" {
           days = var.storage_blob_data_protection.container_delete_retention_policy_in_days
         }
       }
+
+      dynamic "restore_policy" {
+        for_each = local.pitr_enabled ? ["enabled"] : []
+        content {
+          days = var.storage_blob_data_protection.container_delete_retention_policy_in_days - 1
+        }
+      }
     }
   }
 
