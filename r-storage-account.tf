@@ -14,7 +14,7 @@ resource "azurerm_storage_account" "storage" {
   nfsv3_enabled                   = var.nfsv3_enabled
   enable_https_traffic_only       = var.nfsv3_enabled ? false : var.https_traffic_only_enabled
   is_hns_enabled                  = var.nfsv3_enabled ? true : var.hns_enabled
-  large_file_share_enabled        = var.account_kind != "BlockBlobStorage" && (var.account_replication_type == "LRS" || var.account_replication_type == "ZRS")
+  large_file_share_enabled        = var.account_kind != "BlockBlobStorage" && contains(["LRS", "ZRS"], var.account_replication_type)
 
   dynamic "identity" {
     for_each = var.identity_type == null ? [] : ["enabled"]
