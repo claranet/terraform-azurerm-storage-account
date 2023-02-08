@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-995: Do not enable large file if account replication is not `LRS` or `ZRS`
+
 # v7.4.0 - 2022-12-23
 
 Fixed
