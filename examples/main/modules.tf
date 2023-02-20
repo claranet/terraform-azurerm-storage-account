@@ -9,21 +9,22 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location    = module.azure_region.location
   client_name = var.client_name
   environment = var.environment
+  location    = module.azure_region.location
   stack       = var.stack
 }
 
 # module "logs" {
-#   source  = "claranet/run-common/azurerm//modules/logs"
+#   source  = "claranet/run/azurerm//modules/logs"
 #   version = "x.x.x"
 
-#   client_name         = var.client_name
-#   environment         = var.environment
-#   stack               = var.stack
-#   location            = module.azure_region.location
-#   location_short      = module.azure_region.location_short
+#   client_name    = var.client_name
+#   environment    = var.environment
+#   location       = module.azure_region.location
+#   location_short = module.azure_region.location_short
+#   stack          = var.stack
+
 #   resource_group_name = module.rg.resource_group_name
 # }
 
@@ -49,7 +50,7 @@ module "storage_account" {
     container_point_in_time_restore           = true
   }
 
-  # disabled by default
+  # Disabled by default
   storage_blob_cors_rule = {
     allowed_headers    = ["*"]
     allowed_methods    = ["GET", "HEAD"]
@@ -60,7 +61,7 @@ module "storage_account" {
 
   logs_destinations_ids = [
     # module.logs.logs_storage_account_id,
-    # module.logs.log_analytics_workspace_id
+    # module.logs.log_analytics_workspace_id,
   ]
 
   # Set by default
@@ -77,8 +78,8 @@ module "storage_account" {
       name = "bloc1"
     },
     {
-      name                  = "bloc2"
-      container_access_type = "blob"
+      name = "bloc2"
+      # container_access_type = "blob"
     }
   ]
 

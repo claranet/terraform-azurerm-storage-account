@@ -107,13 +107,20 @@ variable "nfsv3_enabled" {
   default     = false
 }
 
+variable "sftp_enabled" {
+  description = "Is SFTP enabled?"
+  type        = bool
+  default     = false
+}
+
 variable "hns_enabled" {
-  description = "Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2 and must be `true` if `nfsv3_enabled` is set to `true`. Changing this forces a new resource to be created."
+  description = "Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2 and must be `true` if `nfsv3_enabled` or `sftp_enabled` is set to `true`. Changing this forces a new resource to be created."
   type        = bool
   default     = false
 }
 
 # Identity
+
 variable "identity_type" {
   description = "Specifies the type of Managed Service Identity that should be configured on this Storage Account. Possible values are `SystemAssigned`, `UserAssigned`, `SystemAssigned, UserAssigned` (to enable both)."
   type        = string

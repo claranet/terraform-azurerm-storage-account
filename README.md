@@ -45,21 +45,22 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location    = module.azure_region.location
   client_name = var.client_name
   environment = var.environment
+  location    = module.azure_region.location
   stack       = var.stack
 }
 
 # module "logs" {
-#   source  = "claranet/run-common/azurerm//modules/logs"
+#   source  = "claranet/run/azurerm//modules/logs"
 #   version = "x.x.x"
 
-#   client_name         = var.client_name
-#   environment         = var.environment
-#   stack               = var.stack
-#   location            = module.azure_region.location
-#   location_short      = module.azure_region.location_short
+#   client_name    = var.client_name
+#   environment    = var.environment
+#   location       = module.azure_region.location
+#   location_short = module.azure_region.location_short
+#   stack          = var.stack
+
 #   resource_group_name = module.rg.resource_group_name
 # }
 
@@ -85,7 +86,7 @@ module "storage_account" {
     container_point_in_time_restore           = true
   }
 
-  # disabled by default
+  # Disabled by default
   storage_blob_cors_rule = {
     allowed_headers    = ["*"]
     allowed_methods    = ["GET", "HEAD"]
@@ -96,7 +97,7 @@ module "storage_account" {
 
   logs_destinations_ids = [
     # module.logs.logs_storage_account_id,
-    # module.logs.log_analytics_workspace_id
+    # module.logs.log_analytics_workspace_id,
   ]
 
   # Set by default
@@ -113,8 +114,8 @@ module "storage_account" {
       name = "bloc1"
     },
     {
-      name                  = "bloc2"
-      container_access_type = "blob"
+      name = "bloc2"
+      # container_access_type = "blob"
     }
   ]
 
@@ -197,7 +198,7 @@ module "storage_account" {
 | file\_share\_properties\_smb | Storage Account file shares smb properties. | <pre>object({<br>    versions                        = optional(list(string), null)<br>    authentication_types            = optional(list(string), null)<br>    kerberos_ticket_encryption_type = optional(list(string), null)<br>    channel_encryption_type         = optional(list(string), null)<br>    multichannel_enabled            = optional(bool, null)<br>  })</pre> | `null` | no |
 | file\_share\_retention\_policy\_in\_days | Storage Account file shares retention policy in days. | `number` | `null` | no |
 | file\_shares | List of objects to create some File Shares in this Storage Account. | <pre>list(object({<br>    name             = string<br>    quota_in_gb      = number<br>    enabled_protocol = optional(string)<br>    metadata         = optional(map(string))<br>    acl = optional(list(object({<br>      id          = string<br>      permissions = string<br>      start       = optional(string)<br>      expiry      = optional(string)<br>    })))<br>  }))</pre> | `[]` | no |
-| hns\_enabled | Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2 and must be `true` if `nfsv3_enabled` is set to `true`. Changing this forces a new resource to be created. | `bool` | `false` | no |
+| hns\_enabled | Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2 and must be `true` if `nfsv3_enabled` or `sftp_enabled` is set to `true`. Changing this forces a new resource to be created. | `bool` | `false` | no |
 | https\_traffic\_only\_enabled | Boolean flag which forces HTTPS if enabled. | `bool` | `true` | no |
 | identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account. | `list(string)` | `null` | no |
 | identity\_type | Specifies the type of Managed Service Identity that should be configured on this Storage Account. Possible values are `SystemAssigned`, `UserAssigned`, `SystemAssigned, UserAssigned` (to enable both). | `string` | `"SystemAssigned"` | no |
@@ -217,6 +218,7 @@ module "storage_account" {
 | queue\_properties\_logging | Logging queue properties | <pre>object({<br>    delete                = optional(bool, true)<br>    read                  = optional(bool, true)<br>    write                 = optional(bool, true)<br>    version               = optional(string, "1.0")<br>    retention_policy_days = optional(number, 10)<br>  })</pre> | `{}` | no |
 | queues | List of objects to create some Queues in this Storage Account. | <pre>list(object({<br>    name     = string<br>    metadata = optional(map(string))<br>  }))</pre> | `[]` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
+| sftp\_enabled | Is SFTP enabled? | `bool` | `false` | no |
 | shared\_access\_key\_enabled | Indicates whether the Storage Account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). | `bool` | `true` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | static\_website\_config | Static website configuration. Can only be set when the `account_kind` is set to `StorageV2` or `BlockBlobStorage`. | <pre>object({<br>    index_document     = optional(string)<br>    error_404_document = optional(string)<br>  })</pre> | `null` | no |
