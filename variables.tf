@@ -179,7 +179,7 @@ variable "containers" {
   description = "List of objects to create some Blob containers in this Storage Account."
   type = list(object({
     name                  = string
-    container_access_type = optional(string)
+    container_access_type = optional(string, "private")
     metadata              = optional(map(string))
   }))
   default = []
