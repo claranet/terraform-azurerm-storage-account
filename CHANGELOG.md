@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-924: Add support for SFTP
+
 # v7.4.1 - 2023-02-08
 
 Fixed
@@ -36,7 +41,7 @@ Changed
 
 Fixed
   * AZ-869: Fix PITR & blob data protection conditions
- 
+
 # v7.0.1 - 2022-10-07
 
 Fixed
