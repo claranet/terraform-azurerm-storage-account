@@ -2,6 +2,7 @@
 
 Added
   * AZ-1065: Add private_link_access option
+  * [GH-4](https://github.com/claranet/terraform-azurerm-storage-account/issues/4): Add an example with multiple storage accounts
 
 # v7.5.0 - 2023-03-03
 
