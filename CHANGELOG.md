@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-1065: Add private_link_access option
+
 # v7.5.0 - 2023-03-03
 
 Added
