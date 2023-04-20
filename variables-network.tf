@@ -36,5 +36,6 @@ variable "private_link_access" {
     endpoint_resource_id = string
     endpoint_tenant_id   = optional(string, null)
   }))
-  default = []
+  default  = []
+  nullable = false
 }
