@@ -4,6 +4,9 @@ Added
   * AZ-1065: Add private_link_access option
   * [GH-4](https://github.com/claranet/terraform-azurerm-storage-account/issues/4): Add an example with multiple storage accounts
 
+Fixed
+  * AZ-996: Ensure Premium file shares have a minimum size of 100Gb
+
 # v7.5.0 - 2023-03-03
 
 Added
