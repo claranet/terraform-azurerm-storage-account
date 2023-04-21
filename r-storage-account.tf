@@ -151,6 +151,7 @@ resource "azurerm_storage_account" "storage" {
     }
   }
 
+  # Bug when nfsv3 is activated. The external resource azurerm_storage_account_network_rules is not taken into account
   dynamic "network_rules" {
     for_each = var.nfsv3_enabled ? ["enabled"] : []
     content {
@@ -158,6 +159,13 @@ resource "azurerm_storage_account" "storage" {
       bypass                     = var.network_bypass
       ip_rules                   = local.storage_ip_rules
       virtual_network_subnet_ids = var.subnet_ids
+      dynamic "private_link_access" {
+        for_each = var.private_link_access
+        content {
+          endpoint_resource_id = private_link_access.value.endpoint_resource_id
+          endpoint_tenant_id   = private_link_access.value.endpoint_tenant_id
+        }
+      }
     }
   }
 
