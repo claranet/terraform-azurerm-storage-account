@@ -11,7 +11,7 @@ variable "file_share_cors_rules" {
 }
 
 variable "file_share_retention_policy_in_days" {
-  description = "Storage Account file shares retention policy in days."
+  description = "Storage Account file shares retention policy in days. Enabling this may require additional directory permissions."
   type        = number
   default     = null
 }
