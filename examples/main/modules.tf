@@ -1,3 +1,7 @@
+data "http" "my_ip" {
+  url = "http://ip4.clara.net/?raw"
+}
+
 module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
@@ -15,18 +19,20 @@ module "rg" {
   stack       = var.stack
 }
 
-# module "logs" {
-#   source  = "claranet/run/azurerm//modules/logs"
-#   version = "x.x.x"
+module "run" {
+  source  = "claranet/run/azurerm"
+  version = "x.x.x"
 
-#   client_name    = var.client_name
-#   environment    = var.environment
-#   location       = module.azure_region.location
-#   location_short = module.azure_region.location_short
-#   stack          = var.stack
+  client_name    = var.client_name
+  environment    = var.environment
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  stack          = var.stack
 
-#   resource_group_name = module.rg.resource_group_name
-# }
+  monitoring_function_enabled = false
+
+  resource_group_name = module.rg.resource_group_name
+}
 
 module "storage_account" {
   source  = "claranet/storage-account/azurerm"
@@ -39,6 +45,8 @@ module "storage_account" {
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
+
+  allowed_cidrs = [format("%s/32", data.http.my_ip.body)]
 
   account_replication_type = "LRS"
 
@@ -60,8 +68,8 @@ module "storage_account" {
   }
 
   logs_destinations_ids = [
-    # module.logs.logs_storage_account_id,
-    # module.logs.log_analytics_workspace_id,
+    module.run.logs_storage_account_id,
+    module.run.log_analytics_workspace_id,
   ]
 
   # Set by default
@@ -75,10 +83,10 @@ module "storage_account" {
 
   containers = [
     {
-      name = "bloc1"
+      name = "container1"
     },
     {
-      name = "bloc2"
+      name = "container2"
       # container_access_type = "blob"
     }
   ]
@@ -90,10 +98,6 @@ module "storage_account" {
     }
   ]
 
-  file_share_authentication = {
-    directory_type = "AADDS"
-  }
-
   tables = [
     {
       name = "table1"
@@ -102,7 +106,7 @@ module "storage_account" {
 
   queues = [
     {
-      name = "mystoragequeue"
+      name = "queue1"
     }
   ]
 
