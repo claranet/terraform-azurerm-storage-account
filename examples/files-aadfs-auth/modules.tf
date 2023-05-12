@@ -48,65 +48,21 @@ module "storage_account" {
 
   allowed_cidrs = [format("%s/32", data.http.my_ip.body)]
 
-  account_replication_type = "LRS"
-
-  storage_blob_data_protection = {
-    change_feed_enabled                       = true
-    versioning_enabled                        = true
-    delete_retention_policy_in_days           = 42
-    container_delete_retention_policy_in_days = 42
-    container_point_in_time_restore           = true
-  }
-
-  # Disabled by default
-  storage_blob_cors_rule = {
-    allowed_headers    = ["*"]
-    allowed_methods    = ["GET", "HEAD"]
-    allowed_origins    = ["https://example.com"]
-    exposed_headers    = ["*"]
-    max_age_in_seconds = 3600
-  }
-
   logs_destinations_ids = [
     module.run.logs_storage_account_id,
     module.run.log_analytics_workspace_id,
   ]
 
-  # Set by default
-  queue_properties_logging = {
-    delete                = true
-    read                  = true
-    write                 = true
-    version               = "1.0"
-    retention_policy_days = 10
+  # This require Administrator rights on the tenant
+  # See https://learn.microsoft.com/en-us/azure/storage/files/storage-files-identity-auth-active-directory-domain-service-enable?tabs=azure-portal#prerequisites
+  file_share_authentication = {
+    directory_type = "AADDS"
   }
-
-  containers = [
-    {
-      name = "container1"
-    },
-    {
-      name = "container2"
-      # container_access_type = "blob"
-    }
-  ]
 
   file_shares = [
     {
       name        = "share1smb"
       quota_in_gb = 50
-    }
-  ]
-
-  tables = [
-    {
-      name = "table1"
-    }
-  ]
-
-  queues = [
-    {
-      name = "queue1"
     }
   ]
 

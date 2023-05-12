@@ -1,3 +1,8 @@
+# Unreleased
+
+Fixed
+  * AZ-1079: Fix example
+
 # v7.6.0 - 2023-04-21
 
 Added

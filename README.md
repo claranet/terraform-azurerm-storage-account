@@ -34,6 +34,10 @@ which set some terraform variables in the environment needed by this module.
 More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 ```hcl
+data "http" "my_ip" {
+  url = "http://ip4.clara.net/?raw"
+}
+
 module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
@@ -51,18 +55,20 @@ module "rg" {
   stack       = var.stack
 }
 
-# module "logs" {
-#   source  = "claranet/run/azurerm//modules/logs"
-#   version = "x.x.x"
+module "run" {
+  source  = "claranet/run/azurerm"
+  version = "x.x.x"
 
-#   client_name    = var.client_name
-#   environment    = var.environment
-#   location       = module.azure_region.location
-#   location_short = module.azure_region.location_short
-#   stack          = var.stack
+  client_name    = var.client_name
+  environment    = var.environment
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  stack          = var.stack
 
-#   resource_group_name = module.rg.resource_group_name
-# }
+  monitoring_function_enabled = false
+
+  resource_group_name = module.rg.resource_group_name
+}
 
 module "storage_account" {
   source  = "claranet/storage-account/azurerm"
@@ -75,6 +81,8 @@ module "storage_account" {
   stack          = var.stack
 
   resource_group_name = module.rg.resource_group_name
+
+  allowed_cidrs = [format("%s/32", data.http.my_ip.body)]
 
   account_replication_type = "LRS"
 
@@ -96,8 +104,8 @@ module "storage_account" {
   }
 
   logs_destinations_ids = [
-    # module.logs.logs_storage_account_id,
-    # module.logs.log_analytics_workspace_id,
+    module.run.logs_storage_account_id,
+    module.run.log_analytics_workspace_id,
   ]
 
   # Set by default
@@ -111,10 +119,10 @@ module "storage_account" {
 
   containers = [
     {
-      name = "bloc1"
+      name = "container1"
     },
     {
-      name = "bloc2"
+      name = "container2"
       # container_access_type = "blob"
     }
   ]
@@ -126,10 +134,6 @@ module "storage_account" {
     }
   ]
 
-  file_share_authentication = {
-    directory_type = "AADDS"
-  }
-
   tables = [
     {
       name = "table1"
@@ -138,7 +142,7 @@ module "storage_account" {
 
   queues = [
     {
-      name = "mystoragequeue"
+      name = "queue1"
     }
   ]
 
@@ -196,7 +200,7 @@ module "storage_account" {
 | file\_share\_authentication | Storage Account file shares authentication configuration. | <pre>object({<br>    directory_type = string<br>    active_directory = optional(object({<br>      storage_sid         = string<br>      domain_name         = string<br>      domain_sid          = string<br>      domain_guid         = string<br>      forest_name         = string<br>      netbios_domain_name = string<br>    }))<br>  })</pre> | `null` | no |
 | file\_share\_cors\_rules | Storage Account file shares CORS rule. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information. | <pre>object({<br>    allowed_headers    = list(string)<br>    allowed_methods    = list(string)<br>    allowed_origins    = list(string)<br>    exposed_headers    = list(string)<br>    max_age_in_seconds = number<br>  })</pre> | `null` | no |
 | file\_share\_properties\_smb | Storage Account file shares smb properties. | <pre>object({<br>    versions                        = optional(list(string), null)<br>    authentication_types            = optional(list(string), null)<br>    kerberos_ticket_encryption_type = optional(list(string), null)<br>    channel_encryption_type         = optional(list(string), null)<br>    multichannel_enabled            = optional(bool, null)<br>  })</pre> | `null` | no |
-| file\_share\_retention\_policy\_in\_days | Storage Account file shares retention policy in days. | `number` | `null` | no |
+| file\_share\_retention\_policy\_in\_days | Storage Account file shares retention policy in days. Enabling this may require additional directory permissions. | `number` | `null` | no |
 | file\_shares | List of objects to create some File Shares in this Storage Account. | <pre>list(object({<br>    name             = string<br>    quota_in_gb      = number<br>    enabled_protocol = optional(string)<br>    metadata         = optional(map(string))<br>    acl = optional(list(object({<br>      id          = string<br>      permissions = string<br>      start       = optional(string)<br>      expiry      = optional(string)<br>    })))<br>  }))</pre> | `[]` | no |
 | hns\_enabled | Is Hierarchical Namespace enabled? This can be used with Azure Data Lake Storage Gen 2 and must be `true` if `nfsv3_enabled` or `sftp_enabled` is set to `true`. Changing this forces a new resource to be created. | `bool` | `false` | no |
 | https\_traffic\_only\_enabled | Boolean flag which forces HTTPS if enabled. | `bool` | `true` | no |
