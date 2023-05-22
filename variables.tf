@@ -119,6 +119,12 @@ variable "hns_enabled" {
   default     = false
 }
 
+variable "last_access_time_enabled" {
+  description = "Is last access time enabled?"
+  type        = bool
+  default     = false
+}
+
 # Identity
 
 variable "identity_type" {
