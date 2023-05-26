@@ -140,12 +140,14 @@ variable "storage_blob_data_protection" {
   type = object({
     change_feed_enabled                       = optional(bool, false)
     versioning_enabled                        = optional(bool, false)
+    last_access_time_enabled                  = optional(bool, false)
     delete_retention_policy_in_days           = optional(number, 0)
     container_delete_retention_policy_in_days = optional(number, 0)
     container_point_in_time_restore           = optional(bool, false)
   })
   default = {
     change_feed_enabled                       = true
+    last_access_time_enabled                  = true
     versioning_enabled                        = true
     delete_retention_policy_in_days           = 30
     container_delete_retention_policy_in_days = 30
