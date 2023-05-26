@@ -1,4 +1,4 @@
-# Unreleased
+# v7.7.0 - 2023-05-26
 
 Added
   * [GH-6](https://github.com/claranet/terraform-azurerm-storage-account/issues/6): Expose `last_access_time_enabled` variable within blob data protection
