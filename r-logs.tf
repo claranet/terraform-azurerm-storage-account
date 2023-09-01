@@ -1,7 +1,6 @@
 module "diagnostics" {
-  # source  = "claranet/diagnostic-settings/azurerm"
-  # version = "~> 6.5.0"
-  source = "git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/diagnostic-settings.git?ref=AZ-1153_drop_retention_param"
+  source  = "claranet/diagnostic-settings/azurerm"
+  version = "~> 6.5.0"
 
   resource_id = azurerm_storage_account.storage.id
 
@@ -18,9 +17,8 @@ module "diagnostics" {
 module "diagnostics_type" {
   for_each = toset(["blob", "file", "table", "queue"])
 
-  # source  = "claranet/diagnostic-settings/azurerm"
-  # version = "~> 6.5.0"
-  source = "git@git.fr.clara.net:claranet/projects/cloud/azure/terraform/modules/diagnostic-settings.git?ref=AZ-1153_drop_retention_param"
+  source  = "claranet/diagnostic-settings/azurerm"
+  version = "~> 6.5.0"
 
   resource_id = format("%s/%sServices/default/", azurerm_storage_account.storage.id, each.key)
 
