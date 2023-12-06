@@ -20,13 +20,6 @@ If you need to enable Active Directory or AAD DS authentication for Azure File o
 | >= 2.x.x       | 0.12.x            | < 2.0           |
 | <  2.x.x       | 0.11.x            | < 2.0           |
 
-## Contributing
-
-If you want to contribute to this repository, feel free to use our [pre-commit](https://pre-commit.com/) git hook configuration
-which will help you automatically update and format some files for you by enforcing our Terraform code module best-practices.
-
-More details are available in the [CONTRIBUTING.md](./CONTRIBUTING.md#pull-request-process) file.
-
 ## Usage
 
 This module is optimized to work with the [Claranet terraform-wrapper](https://github.com/claranet/terraform-wrapper) tool
@@ -191,6 +184,7 @@ module "storage_account" {
 | allowed\_cidrs | List of CIDR to allow access to that Storage Account. | `list(string)` | `[]` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | containers | List of objects to create some Blob containers in this Storage Account. | <pre>list(object({<br>    name                  = string<br>    container_access_type = optional(string, "private")<br>    metadata              = optional(map(string))<br>  }))</pre> | `[]` | no |
+| cross\_tenant\_replication\_enabled | Enabled cross tenant replication | `bool` | `false` | no |
 | custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_domain\_name | The Custom Domain Name to use for the Storage Account, which will be validated by Azure. | `string` | `null` | no |
 | default\_firewall\_action | Which default firewalling policy to apply. Valid values are `Allow` or `Deny`. | `string` | `"Deny"` | no |
