@@ -13,11 +13,11 @@ resource "azurerm_storage_account" "storage" {
   shared_access_key_enabled       = var.shared_access_key_enabled
   large_file_share_enabled        = var.account_kind != "BlockBlobStorage" && contains(["LRS", "ZRS"], var.account_replication_type)
 
-  sftp_enabled              = var.sftp_enabled
-  nfsv3_enabled             = var.nfsv3_enabled
-  is_hns_enabled            = var.nfsv3_enabled || var.sftp_enabled ? true : var.hns_enabled
-  enable_https_traffic_only = var.nfsv3_enabled ? false : var.https_traffic_only_enabled
-
+  sftp_enabled                     = var.sftp_enabled
+  nfsv3_enabled                    = var.nfsv3_enabled
+  is_hns_enabled                   = var.nfsv3_enabled || var.sftp_enabled ? true : var.hns_enabled
+  enable_https_traffic_only        = var.nfsv3_enabled ? false : var.https_traffic_only_enabled
+  cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
   dynamic "identity" {
     for_each = var.identity_type == null ? [] : ["enabled"]
     content {
