@@ -1,4 +1,4 @@
-# Unreleased
+# v7.9.0 - 2023-12-08
 
 Added
   * AZ-1292: Add `cross_tenant_replication_enabled` parameter for enabling cross tenant replication support
