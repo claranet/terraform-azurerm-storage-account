@@ -1,3 +1,8 @@
+# v7.9.0 - 2023-09-01
+Added
+  * [AZ-1292]:-Add cross_tenant_replication_enabled parameter for enabling corss tenant replication support
+
+
 # v7.8.0 - 2023-09-01
 
 Breaking
