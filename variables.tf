@@ -240,7 +240,7 @@ variable "queue_properties_logging" {
 }
 
 variable "cross_tenant_replication_enabled" {
-  description = "Enabled cross tenant replication"
+  description = "Enable cross tenant replication."
   type        = bool
   default     = false
 }
