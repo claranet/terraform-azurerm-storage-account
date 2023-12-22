@@ -171,6 +171,13 @@ resource "azurerm_storage_account" "storage" {
   }
 
   tags = merge(local.default_tags, var.extra_tags)
+
+  lifecycle {
+    precondition {
+      condition     = var.account_tier != "Premium" || !local.pitr_enabled
+      error_message = "Point in time restore is not supported with Premium Storage Accounts."
+    }
+  }
 }
 
 resource "azurerm_advanced_threat_protection" "threat_protection" {

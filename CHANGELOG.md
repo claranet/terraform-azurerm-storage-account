@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * AZ-1317: Add a precondition to disallow PITR on Premium storage accounts
+
 # v7.9.0 - 2023-12-08
 
 Added
