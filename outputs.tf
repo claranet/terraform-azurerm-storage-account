@@ -1,6 +1,7 @@
 output "storage_account_properties" {
   description = "Created Storage Account properties."
   value       = azurerm_storage_account.storage
+  sensitive   = true
 }
 
 output "storage_account_id" {
