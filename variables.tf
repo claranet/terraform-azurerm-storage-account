@@ -74,6 +74,12 @@ variable "public_nested_items_allowed" {
   default     = false
 }
 
+variable "public_network_access_enabled" {
+  description = "Whether the public network access is enabled?"
+  type        = bool
+  default     = true
+}
+
 variable "custom_domain_name" {
   description = "The Custom Domain Name to use for the Storage Account, which will be validated by Azure."
   type        = string
