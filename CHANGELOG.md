@@ -1,3 +1,8 @@
+# Unreleased
+
+Added
+  * [GH-14](https://github.com/claranet/terraform-azurerm-storage-account/issues/14): add `public_network_access_enabled` parameter
+
 # v7.10.0 - 2023-12-22
 
 Added
