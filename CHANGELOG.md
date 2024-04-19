@@ -1,3 +1,16 @@
+## 7.11.1 (2024-04-19)
+
+
+### Bug Fixes
+
+* **AZ-1395:** precondition for premium account_tier 608a448
+
+
+### Continuous Integration
+
+* **AZ-1391:** enable semantic-release [skip ci] 172522f
+* **AZ-1391:** update semantic-release config [skip ci] df8c7e1
+
 # v7.11.0 - 2024-03-29
 
 Added
