@@ -45,7 +45,7 @@ resource "azurerm_storage_account" "storage" {
 
   dynamic "blob_properties" {
     for_each = (
-      var.account_kind != "FileStorage" && (var.storage_blob_data_protection != null || var.storage_blob_cors_rule != null) ? ["enabled"] : []
+      var.account_kind != "FileStorage" && (var.storage_blob_data_protection != null || length(var.storage_blob_cors_rules) > 0) ? ["enabled"] : []
     )
 
     content {
@@ -54,13 +54,13 @@ resource "azurerm_storage_account" "storage" {
       last_access_time_enabled = var.nfsv3_enabled || var.sftp_enabled ? false : var.storage_blob_data_protection.last_access_time_enabled
 
       dynamic "cors_rule" {
-        for_each = var.storage_blob_cors_rule != null ? ["enabled"] : []
+        for_each = var.storage_blob_cors_rules
         content {
-          allowed_headers    = var.storage_blob_cors_rule.allowed_headers
-          allowed_methods    = var.storage_blob_cors_rule.allowed_methods
-          allowed_origins    = var.storage_blob_cors_rule.allowed_origins
-          exposed_headers    = var.storage_blob_cors_rule.exposed_headers
-          max_age_in_seconds = var.storage_blob_cors_rule.max_age_in_seconds
+          allowed_headers    = cors_rule.value.allowed_headers
+          allowed_methods    = cors_rule.value.allowed_methods
+          allowed_origins    = cors_rule.value.allowed_origins
+          exposed_headers    = cors_rule.value.exposed_headers
+          max_age_in_seconds = cors_rule.value.max_age_in_seconds
         }
       }
 

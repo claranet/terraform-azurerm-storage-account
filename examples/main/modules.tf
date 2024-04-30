@@ -59,13 +59,13 @@ module "storage_account" {
   }
 
   # Disabled by default
-  storage_blob_cors_rule = {
+  storage_blob_cors_rules = [{
     allowed_headers    = ["*"]
     allowed_methods    = ["GET", "HEAD"]
     allowed_origins    = ["https://example.com"]
     exposed_headers    = ["*"]
     max_age_in_seconds = 3600
-  }
+  }]
 
   logs_destinations_ids = [
     module.run.logs_storage_account_id,

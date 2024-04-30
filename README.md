@@ -95,13 +95,13 @@ module "storage_account" {
   }
 
   # Disabled by default
-  storage_blob_cors_rule = {
+  storage_blob_cors_rules = [{
     allowed_headers    = ["*"]
     allowed_methods    = ["GET", "HEAD"]
     allowed_origins    = ["https://example.com"]
     exposed_headers    = ["*"]
     max_age_in_seconds = 3600
-  }
+  }]
 
   logs_destinations_ids = [
     module.run.logs_storage_account_id,
@@ -229,7 +229,7 @@ module "storage_account" {
 | stack | Project stack name | `string` | n/a | yes |
 | static\_website\_config | Static website configuration. Can only be set when the `account_kind` is set to `StorageV2` or `BlockBlobStorage`. | <pre>object({<br>    index_document     = optional(string)<br>    error_404_document = optional(string)<br>  })</pre> | `null` | no |
 | storage\_account\_custom\_name | Custom Azure Storage Account name, generated if not set | `string` | `""` | no |
-| storage\_blob\_cors\_rule | Storage Account blob CORS rule. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information. | <pre>object({<br>    allowed_headers    = list(string)<br>    allowed_methods    = list(string)<br>    allowed_origins    = list(string)<br>    exposed_headers    = list(string)<br>    max_age_in_seconds = number<br>  })</pre> | `null` | no |
+| storage\_blob\_cors\_rules | Storage Account blob CORS rules. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information. | <pre>list(object({<br>    allowed_headers    = list(string)<br>    allowed_methods    = list(string)<br>    allowed_origins    = list(string)<br>    exposed_headers    = list(string)<br>    max_age_in_seconds = number<br>  }))</pre> | `[]` | no |
 | storage\_blob\_data\_protection | Storage account blob Data protection parameters. | <pre>object({<br>    change_feed_enabled                       = optional(bool, false)<br>    versioning_enabled                        = optional(bool, false)<br>    last_access_time_enabled                  = optional(bool, false)<br>    delete_retention_policy_in_days           = optional(number, 0)<br>    container_delete_retention_policy_in_days = optional(number, 0)<br>    container_point_in_time_restore           = optional(bool, false)<br>  })</pre> | <pre>{<br>  "change_feed_enabled": true,<br>  "container_delete_retention_policy_in_days": 30,<br>  "container_point_in_time_restore": true,<br>  "delete_retention_policy_in_days": 30,<br>  "last_access_time_enabled": true,<br>  "versioning_enabled": true<br>}</pre> | no |
 | subnet\_ids | Subnets to allow access to that Storage Account. | `list(string)` | `[]` | no |
 | tables | List of objects to create some Tables in this Storage Account. | <pre>list(object({<br>    name = string<br>    acl = optional(list(object({<br>      id          = string<br>      permissions = string<br>      start       = optional(string)<br>      expiry      = optional(string)<br>    })))<br>  }))</pre> | `[]` | no |
