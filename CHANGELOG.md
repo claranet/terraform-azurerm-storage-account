@@ -1,3 +1,21 @@
+## 7.12.0 (2024-05-03)
+
+
+### Features
+
+* **GH-9:** change `storage_blob_cors_rule` to a list, allow multiple cors rules 6ac1267
+
+
+### Miscellaneous Chores
+
+* **deps:** enable automerge on renovate ad8d72c
+* **deps:** update dependency opentofu to v1.7.0 ad5959b
+* **deps:** update dependency tflint to v0.51.0 6008dc9
+* **deps:** update dependency trivy to v0.50.2 51eb028
+* **deps:** update dependency trivy to v0.50.4 297b235
+* **pre-commit:** update commitlint hook 1edef34
+* **release:** remove legacy `VERSION` file 03f491b
+
 ## 7.11.1 (2024-04-19)
 
 
