@@ -14,16 +14,18 @@ resource "azurerm_storage_account" "storage" {
   shared_access_key_enabled       = var.shared_access_key_enabled
   large_file_share_enabled        = var.account_kind != "BlockBlobStorage" && contains(["LRS", "ZRS"], var.account_replication_type)
 
-  sftp_enabled                     = var.sftp_enabled
-  nfsv3_enabled                    = var.nfsv3_enabled
-  is_hns_enabled                   = var.nfsv3_enabled || var.sftp_enabled ? true : var.hns_enabled
-  enable_https_traffic_only        = var.nfsv3_enabled ? false : var.https_traffic_only_enabled
-  cross_tenant_replication_enabled = var.cross_tenant_replication_enabled
+  sftp_enabled                      = var.sftp_enabled
+  nfsv3_enabled                     = var.nfsv3_enabled
+  is_hns_enabled                    = var.nfsv3_enabled || var.sftp_enabled ? true : var.hns_enabled
+  enable_https_traffic_only         = var.nfsv3_enabled ? false : var.https_traffic_only_enabled
+  cross_tenant_replication_enabled  = var.cross_tenant_replication_enabled
+  infrastructure_encryption_enabled = var.infrastructure_encryption_enabled
+
   dynamic "identity" {
     for_each = var.identity_type == null ? [] : ["enabled"]
     content {
       type         = var.identity_type
-      identity_ids = var.identity_ids == "UserAssigned" ? var.identity_ids : null
+      identity_ids = length(var.identity_ids) > 0 ? var.identity_ids : null
     }
   }
 
@@ -40,6 +42,15 @@ resource "azurerm_storage_account" "storage" {
     content {
       name          = var.custom_domain_name
       use_subdomain = var.use_subdomain
+    }
+  }
+
+  dynamic "customer_managed_key" {
+    for_each = var.customer_managed_key != null ? ["enabled"] : []
+    content {
+      key_vault_key_id          = try(var.customer_managed_key.key_vault_key_id, null)
+      managed_hsm_key_id        = try(var.customer_managed_key.managed_hsm_key_id, null)
+      user_assigned_identity_id = var.customer_managed_key.user_assigned_identity_id
     }
   }
 
@@ -178,6 +189,11 @@ resource "azurerm_storage_account" "storage" {
       condition     = var.account_tier != "Premium" || !local.pitr_enabled
       error_message = "Point in time restore is not supported with Premium Storage Accounts."
     }
+    ignore_changes = [
+      # Ignore changes to tags, e.g. because a management agent
+      # updates these based on some ruleset managed elsewhere.
+      tags
+    ]
   }
 }
 

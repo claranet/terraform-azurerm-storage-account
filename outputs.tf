@@ -26,6 +26,16 @@ output "storage_account_network_rules" {
   )
 }
 
+output "storage_account_primary_blob_endpoint" {
+  description = "Created Storage Account primary endpoint URL."
+  value       = azurerm_storage_account.storage.primary_blob_endpoint
+}
+
+output "storage_account_primary_blob_host" {
+  description = "Created Storage Account primary blob host."
+  value       = azurerm_storage_account.storage.primary_blob_host
+}
+
 output "storage_blob_containers" {
   description = "Created blob containers in the Storage Account."
   value       = azurerm_storage_container.container

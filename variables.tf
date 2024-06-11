@@ -141,6 +141,22 @@ variable "identity_ids" {
 
 # Data protection
 
+variable "customer_managed_key" {
+  description = "Customer Managed Key. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#customer_managed_key) for more information."
+  type = object({
+    key_vault_key_id          = optional(string, null)
+    managed_hsm_key_id        = optional(string, null)
+    user_assigned_identity_id = string
+  })
+  default = null
+}
+
+variable "infrastructure_encryption_enabled" {
+  description = "Boolean flag which enables infrastructure encryption.  Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#infrastructure_encryption_enabled) for more information."
+  type        = bool
+  default     = false
+}
+
 variable "storage_blob_data_protection" {
   description = "Storage account blob Data protection parameters."
   type = object({
