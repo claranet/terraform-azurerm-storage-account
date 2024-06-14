@@ -1,3 +1,32 @@
+## 7.13.0 (2024-06-14)
+
+
+### Features
+
+* add variables infrastructure_encryption_enabled, customer_managed_key; fix identity_ids 0e20af8
+
+
+### Documentation
+
+* update README, revert output changes 68e6099
+
+
+### Miscellaneous Chores
+
+* apply suggestions from code review 86e910e
+* **deps:** update dependency opentofu to v1.7.1 33ec93a
+* **deps:** update dependency opentofu to v1.7.2 937472a
+* **deps:** update dependency pre-commit to v3.7.1 af64f9d
+* **deps:** update dependency terraform-docs to v0.18.0 c44f231
+* **deps:** update dependency tflint to v0.51.1 f9db5a6
+* **deps:** update dependency trivy to v0.51.0 eb6a1cc
+* **deps:** update dependency trivy to v0.51.1 87b766e
+* **deps:** update dependency trivy to v0.51.2 15c9c2b
+* **deps:** update dependency trivy to v0.51.4 4fa6c2f
+* **deps:** update dependency trivy to v0.52.0 bf0f05d
+* **deps:** update dependency trivy to v0.52.1 5d29abb
+* the `managed_hsm_key_id` requires provider `v3.102` a416c1f
+
 ## 7.12.0 (2024-05-03)
 
 
