@@ -25,7 +25,7 @@ resource "azurerm_storage_account" "storage" {
     for_each = var.identity_type == null ? [] : ["enabled"]
     content {
       type         = var.identity_type
-      identity_ids = length(var.identity_ids) > 0 ? var.identity_ids : null
+      identity_ids = endswith(var.identity_type, "UserAssigned") ? var.identity_ids : null
     }
   }
 
