@@ -46,10 +46,10 @@ resource "azurerm_storage_account" "storage" {
   }
 
   dynamic "customer_managed_key" {
-    for_each = var.customer_managed_key != null ? ["enabled"] : []
+    for_each = var.customer_managed_key[*]
     content {
-      key_vault_key_id          = try(var.customer_managed_key.key_vault_key_id, null)
-      managed_hsm_key_id        = try(var.customer_managed_key.managed_hsm_key_id, null)
+      key_vault_key_id          = var.customer_managed_key.key_vault_key_id
+      managed_hsm_key_id        = var.customer_managed_key.managed_hsm_key_id
       user_assigned_identity_id = var.customer_managed_key.user_assigned_identity_id
     }
   }
