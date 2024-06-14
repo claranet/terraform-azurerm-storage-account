@@ -1,3 +1,15 @@
+## 7.13.1 (2024-06-14)
+
+
+### Bug Fixes
+
+* fix `identity` block 787d90c
+
+
+### Miscellaneous Chores
+
+* **deps:** update dependency trivy to v0.52.2 d308803
+
 ## 7.13.0 (2024-06-14)
 
 
