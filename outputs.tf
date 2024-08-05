@@ -18,14 +18,6 @@ output "storage_account_identity" {
   value       = azurerm_storage_account.storage.identity
 }
 
-output "storage_account_network_rules" {
-  description = "Network rules of the associated Storage Account."
-  value = try(
-    one(azurerm_storage_account_network_rules.network_rules[*].enabled),
-    azurerm_storage_account.storage.network_rules[0],
-  )
-}
-
 output "storage_blob_containers" {
   description = "Created blob containers in the Storage Account."
   value       = azurerm_storage_container.container
