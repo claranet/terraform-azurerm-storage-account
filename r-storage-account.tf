@@ -17,7 +17,7 @@ resource "azurerm_storage_account" "storage" {
   sftp_enabled                      = var.sftp_enabled
   nfsv3_enabled                     = var.nfsv3_enabled
   is_hns_enabled                    = var.nfsv3_enabled || var.sftp_enabled ? true : var.hns_enabled
-  enable_https_traffic_only         = var.nfsv3_enabled ? false : var.https_traffic_only_enabled
+  https_traffic_only_enabled        = var.nfsv3_enabled ? false : var.https_traffic_only_enabled
   cross_tenant_replication_enabled  = var.cross_tenant_replication_enabled
   infrastructure_encryption_enabled = var.infrastructure_encryption_enabled
 
