@@ -1,3 +1,14 @@
+## 7.13.3 (2024-08-19)
+
+### Bug Fixes
+
+* **GH-17:** deprecated `enable_https_traffic_only` as been superseded by `https_traffic_only_enabled` 49aa3c6
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.1 7f2b37b
+* **deps:** update tools 6890592
+
 ## 7.13.2 (2024-08-05)
 
 
