@@ -1,5 +1,10 @@
-resource "azurerm_storage_account" "storage" {
-  name                = local.sa_name
+moved {
+  from = azurerm_storage_account.storage
+  to   = azurerm_storage_account.main
+}
+
+resource "azurerm_storage_account" "main" {
+  name                = local.name
   resource_group_name = var.resource_group_name
   location            = var.location
 
@@ -22,7 +27,7 @@ resource "azurerm_storage_account" "storage" {
   infrastructure_encryption_enabled = var.infrastructure_encryption_enabled
 
   dynamic "identity" {
-    for_each = var.identity_type == null ? [] : ["enabled"]
+    for_each = var.identity_type[*]
     content {
       type         = var.identity_type
       identity_ids = endswith(var.identity_type, "UserAssigned") ? var.identity_ids : null
@@ -30,7 +35,7 @@ resource "azurerm_storage_account" "storage" {
   }
 
   dynamic "static_website" {
-    for_each = var.static_website_config == null ? [] : ["enabled"]
+    for_each = var.static_website_config[*]
     content {
       index_document     = var.static_website_config.index_document
       error_404_document = var.static_website_config.error_404_document
@@ -38,7 +43,7 @@ resource "azurerm_storage_account" "storage" {
   }
 
   dynamic "custom_domain" {
-    for_each = var.custom_domain_name != null ? ["enabled"] : []
+    for_each = var.custom_domain_name[*]
     content {
       name          = var.custom_domain_name
       use_subdomain = var.use_subdomain
@@ -115,7 +120,7 @@ resource "azurerm_storage_account" "storage" {
     for_each = var.file_share_cors_rules != null || var.file_share_retention_policy_in_days != null || var.file_share_properties_smb != null ? ["enabled"] : []
     content {
       dynamic "cors_rule" {
-        for_each = var.file_share_cors_rules != null ? ["enabled"] : []
+        for_each = var.file_share_cors_rules[*]
         content {
           allowed_headers    = var.file_share_cors_rules.allowed_headers
           allowed_methods    = var.file_share_cors_rules.allowed_methods
@@ -126,14 +131,14 @@ resource "azurerm_storage_account" "storage" {
       }
 
       dynamic "retention_policy" {
-        for_each = var.file_share_retention_policy_in_days != null ? ["enabled"] : []
+        for_each = var.file_share_retention_policy_in_days[*]
         content {
           days = var.file_share_retention_policy_in_days
         }
       }
 
       dynamic "smb" {
-        for_each = var.file_share_properties_smb != null ? ["enabled"] : []
+        for_each = var.file_share_properties_smb[*]
         content {
           authentication_types            = var.file_share_properties_smb.authentication_types
           channel_encryption_type         = var.file_share_properties_smb.channel_encryption_type
@@ -146,7 +151,7 @@ resource "azurerm_storage_account" "storage" {
   }
 
   dynamic "azure_files_authentication" {
-    for_each = var.file_share_authentication != null ? ["enabled"] : []
+    for_each = var.file_share_authentication[*]
     content {
       directory_type = var.file_share_authentication.directory_type
       dynamic "active_directory" {
@@ -192,7 +197,12 @@ resource "azurerm_storage_account" "storage" {
   }
 }
 
-resource "azurerm_advanced_threat_protection" "threat_protection" {
+moved {
+  from = azurerm_advanced_threat_protection.threat_protection
+  to   = azurerm_advanced_threat_protection.main
+}
+
+resource "azurerm_advanced_threat_protection" "main" {
   enabled            = var.advanced_threat_protection_enabled
-  target_resource_id = azurerm_storage_account.storage.id
+  target_resource_id = azurerm_storage_account.main.id
 }

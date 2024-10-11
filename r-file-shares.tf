@@ -1,7 +1,7 @@
-resource "azurerm_storage_share" "share" {
+resource "azurerm_storage_share" "main" {
   for_each = try({ for s in var.file_shares : s.name => s }, {})
 
-  storage_account_name = azurerm_storage_account.storage.name
+  storage_account_name = azurerm_storage_account.main.name
 
   name  = each.key
   quota = each.value.quota_in_gb
@@ -33,4 +33,9 @@ resource "azurerm_storage_share" "share" {
       error_message = "File share quota must be at least 100Gb for Premium Storage Accounts."
     }
   }
+}
+
+moved {
+  from = azurerm_storage_share.share
+  to   = azurerm_storage_share.main
 }

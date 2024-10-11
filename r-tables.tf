@@ -1,7 +1,7 @@
-resource "azurerm_storage_table" "table" {
+resource "azurerm_storage_table" "main" {
   for_each = try({ for t in var.tables : t.name => t }, {})
 
-  storage_account_name = azurerm_storage_account.storage.name
+  storage_account_name = azurerm_storage_account.main.name
 
   name = each.key
 
@@ -18,4 +18,9 @@ resource "azurerm_storage_table" "table" {
       }
     }
   }
+}
+
+moved {
+  from = azurerm_storage_table.table
+  to   = azurerm_storage_table.main
 }

@@ -1,7 +1,7 @@
-resource "azurerm_storage_account_network_rules" "network_rules" {
-  for_each = toset(var.network_rules_enabled && !var.nfsv3_enabled ? ["enabled"] : [])
+resource "azurerm_storage_account_network_rules" "main" {
+  count = var.network_rules_enabled && !var.nfsv3_enabled ? 1 : 0
 
-  storage_account_id = azurerm_storage_account.storage.id
+  storage_account_id = azurerm_storage_account.main.id
 
   default_action             = var.default_firewall_action
   bypass                     = var.network_bypass
@@ -14,4 +14,9 @@ resource "azurerm_storage_account_network_rules" "network_rules" {
       endpoint_tenant_id   = private_link_access.value.endpoint_tenant_id
     }
   }
+}
+
+moved {
+  from = azurerm_storage_account_network_rules.network_rules["enabled"]
+  to   = azurerm_storage_account_network_rules.main[0]
 }

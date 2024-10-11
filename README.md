@@ -38,42 +38,6 @@ More details about variables set by the `terraform-wrapper` available in the [do
 [Hashicorp Terraform](https://github.com/hashicorp/terraform/). Instead, we recommend to use [OpenTofu](https://github.com/opentofu/opentofu/).
 
 ```hcl
-data "http" "my_ip" {
-  url = "http://ip4.clara.net/?raw"
-}
-
-module "azure_region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  client_name = var.client_name
-  environment = var.environment
-  location    = module.azure_region.location
-  stack       = var.stack
-}
-
-module "run" {
-  source  = "claranet/run/azurerm"
-  version = "x.x.x"
-
-  client_name    = var.client_name
-  environment    = var.environment
-  location       = module.azure_region.location
-  location_short = module.azure_region.location_short
-  stack          = var.stack
-
-  monitoring_function_enabled = false
-
-  resource_group_name = module.rg.resource_group_name
-}
-
 module "storage_account" {
   source  = "claranet/storage-account/azurerm"
   version = "x.x.x"
@@ -84,7 +48,7 @@ module "storage_account" {
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   allowed_cidrs = [format("%s/32", data.http.my_ip.body)]
 
@@ -108,8 +72,8 @@ module "storage_account" {
   }]
 
   logs_destinations_ids = [
-    module.run.logs_storage_account_id,
-    module.run.log_analytics_workspace_id,
+    # module.run.logs_storage_account_id,
+    # module.run.log_analytics_workspace_id,
   ]
 
   # Set by default
@@ -160,8 +124,8 @@ module "storage_account" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | ~> 3.114 |
+| azurecaf | ~> 1.2.28 |
+| azurerm | ~> 4.0 |
 
 ## Modules
 
@@ -174,13 +138,13 @@ module "storage_account" {
 
 | Name | Type |
 |------|------|
-| [azurerm_advanced_threat_protection.threat_protection](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/advanced_threat_protection) | resource |
-| [azurerm_storage_account.storage](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
-| [azurerm_storage_account_network_rules.network_rules](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
-| [azurerm_storage_container.container](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
-| [azurerm_storage_queue.queue](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_queue) | resource |
-| [azurerm_storage_share.share](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_share) | resource |
-| [azurerm_storage_table.table](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_table) | resource |
+| [azurerm_advanced_threat_protection.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/advanced_threat_protection) | resource |
+| [azurerm_storage_account.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account) | resource |
+| [azurerm_storage_account_network_rules.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account_network_rules) | resource |
+| [azurerm_storage_container.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_container) | resource |
+| [azurerm_storage_queue.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_queue) | resource |
+| [azurerm_storage_share.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_share) | resource |
+| [azurerm_storage_table.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_table) | resource |
 | [azurecaf_name.sa](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
 
 ## Inputs
@@ -193,15 +157,16 @@ module "storage_account" {
 | account\_tier | Defines the Tier to use for this Storage Account. Valid options are `Standard` and `Premium`. For `BlockBlobStorage` and `FileStorage` accounts only `Premium` is valid. Changing this forces a new resource to be created. | `string` | `"Standard"` | no |
 | advanced\_threat\_protection\_enabled | Boolean flag which controls if advanced threat protection is enabled, see [documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
 | allowed\_cidrs | List of CIDR to allow access to that Storage Account. | `list(string)` | `[]` | no |
-| client\_name | Client name/account used in naming | `string` | n/a | yes |
+| client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | containers | List of objects to create some Blob containers in this Storage Account. | <pre>list(object({<br/>    name                  = string<br/>    container_access_type = optional(string, "private")<br/>    metadata              = optional(map(string))<br/>  }))</pre> | `[]` | no |
 | cross\_tenant\_replication\_enabled | Enable cross tenant replication. | `bool` | `false` | no |
-| custom\_diagnostic\_settings\_name | Custom name of the diagnostics settings, name will be 'default' if not set. | `string` | `"default"` | no |
 | custom\_domain\_name | The Custom Domain Name to use for the Storage Account, which will be validated by Azure. | `string` | `null` | no |
+| custom\_name | Custom Azure Storage Account name, generated if not set. | `string` | `""` | no |
 | customer\_managed\_key | Customer Managed Key. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#customer_managed_key) for more information. | <pre>object({<br/>    key_vault_key_id          = optional(string, null)<br/>    managed_hsm_key_id        = optional(string, null)<br/>    user_assigned_identity_id = string<br/>  })</pre> | `null` | no |
 | default\_firewall\_action | Which default firewalling policy to apply. Valid values are `Allow` or `Deny`. | `string` | `"Deny"` | no |
 | default\_tags\_enabled | Option to enable or disable default tags. | `bool` | `true` | no |
-| environment | Project environment | `string` | n/a | yes |
+| diagnostic\_settings\_custom\_name | Custom name of the diagnostics settings, name will be `default` if not set. | `string` | `"default"` | no |
+| environment | Project environment. | `string` | n/a | yes |
 | extra\_tags | Additional tags to associate with your Azure Storage Account. | `map(string)` | `{}` | no |
 | file\_share\_authentication | Storage Account file shares authentication configuration. | <pre>object({<br/>    directory_type = string<br/>    active_directory = optional(object({<br/>      storage_sid         = string<br/>      domain_name         = string<br/>      domain_sid          = string<br/>      domain_guid         = string<br/>      forest_name         = string<br/>      netbios_domain_name = string<br/>    }))<br/>  })</pre> | `null` | no |
 | file\_share\_cors\_rules | Storage Account file shares CORS rule. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information. | <pre>object({<br/>    allowed_headers    = list(string)<br/>    allowed_methods    = list(string)<br/>    allowed_origins    = list(string)<br/>    exposed_headers    = list(string)<br/>    max_age_in_seconds = number<br/>  })</pre> | `null` | no |
@@ -213,14 +178,14 @@ module "storage_account" {
 | identity\_ids | Specifies a list of User Assigned Managed Identity IDs to be assigned to this Storage Account. | `list(string)` | `null` | no |
 | identity\_type | Specifies the type of Managed Service Identity that should be configured on this Storage Account. Possible values are `SystemAssigned`, `UserAssigned`, `SystemAssigned, UserAssigned` (to enable both). | `string` | `"SystemAssigned"` | no |
 | infrastructure\_encryption\_enabled | Boolean flag which enables infrastructure encryption.  Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#infrastructure_encryption_enabled) for more information. | `bool` | `false` | no |
-| location | Azure location | `string` | n/a | yes |
-| location\_short | Short string for Azure location | `string` | n/a | yes |
+| location | Azure location. | `string` | n/a | yes |
+| location\_short | Short string for Azure location. | `string` | n/a | yes |
 | logs\_categories | Log categories to send to destinations. | `list(string)` | `null` | no |
-| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to specify an Azure EventHub to send logs and metrics to, you need to provide a formated string with both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the `|` character. | `list(string)` | n/a | yes |
+| logs\_destinations\_ids | List of destination resources IDs for logs diagnostic destination.<br/>Can be `Storage Account`, `Log Analytics Workspace` and `Event Hub`. No more than one of each can be set.<br/>If you want to use Azure EventHub as a destination, you must provide a formatted string containing both the EventHub Namespace authorization send ID and the EventHub name (name of the queue to use in the Namespace) separated by the <code>&#124;</code> character. | `list(string)` | n/a | yes |
 | logs\_metrics\_categories | Metrics categories to send to destinations. | `list(string)` | `null` | no |
 | min\_tls\_version | The minimum supported TLS version for the Storage Account. Possible values are `TLS1_0`, `TLS1_1`, and `TLS1_2`. | `string` | `"TLS1_2"` | no |
-| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
-| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
+| name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | network\_bypass | Specifies whether traffic is bypassed for 'Logging', 'Metrics', 'AzureServices' or 'None'. | `list(string)` | <pre>[<br/>  "Logging",<br/>  "Metrics",<br/>  "AzureServices"<br/>]</pre> | no |
 | network\_rules\_enabled | Boolean to enable Network Rules on the Storage Account, requires `network_bypass`, `allowed_cidrs`, `subnet_ids` or `default_firewall_action` correctly set if enabled. | `bool` | `true` | no |
 | nfsv3\_enabled | Is NFSv3 protocol enabled? Changing this forces a new resource to be created. | `bool` | `false` | no |
@@ -229,29 +194,28 @@ module "storage_account" {
 | public\_network\_access\_enabled | Whether the public network access is enabled? | `bool` | `true` | no |
 | queue\_properties\_logging | Logging queue properties | <pre>object({<br/>    delete                = optional(bool, true)<br/>    read                  = optional(bool, true)<br/>    write                 = optional(bool, true)<br/>    version               = optional(string, "1.0")<br/>    retention_policy_days = optional(number, 10)<br/>  })</pre> | `{}` | no |
 | queues | List of objects to create some Queues in this Storage Account. | <pre>list(object({<br/>    name     = string<br/>    metadata = optional(map(string))<br/>  }))</pre> | `[]` | no |
-| resource\_group\_name | Resource group name | `string` | n/a | yes |
+| resource\_group\_name | Resource group name. | `string` | n/a | yes |
 | sftp\_enabled | Is SFTP enabled? | `bool` | `false` | no |
 | shared\_access\_key\_enabled | Indicates whether the Storage Account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD). | `bool` | `true` | no |
-| stack | Project stack name | `string` | n/a | yes |
+| stack | Project stack name. | `string` | n/a | yes |
 | static\_website\_config | Static website configuration. Can only be set when the `account_kind` is set to `StorageV2` or `BlockBlobStorage`. | <pre>object({<br/>    index_document     = optional(string)<br/>    error_404_document = optional(string)<br/>  })</pre> | `null` | no |
-| storage\_account\_custom\_name | Custom Azure Storage Account name, generated if not set | `string` | `""` | no |
 | storage\_blob\_cors\_rules | Storage Account blob CORS rules. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information. | <pre>list(object({<br/>    allowed_headers    = list(string)<br/>    allowed_methods    = list(string)<br/>    allowed_origins    = list(string)<br/>    exposed_headers    = list(string)<br/>    max_age_in_seconds = number<br/>  }))</pre> | `[]` | no |
 | storage\_blob\_data\_protection | Storage account blob Data protection parameters. | <pre>object({<br/>    change_feed_enabled                       = optional(bool, false)<br/>    versioning_enabled                        = optional(bool, false)<br/>    last_access_time_enabled                  = optional(bool, false)<br/>    delete_retention_policy_in_days           = optional(number, 0)<br/>    container_delete_retention_policy_in_days = optional(number, 0)<br/>    container_point_in_time_restore           = optional(bool, false)<br/>  })</pre> | <pre>{<br/>  "change_feed_enabled": true,<br/>  "container_delete_retention_policy_in_days": 30,<br/>  "container_point_in_time_restore": true,<br/>  "delete_retention_policy_in_days": 30,<br/>  "last_access_time_enabled": true,<br/>  "versioning_enabled": true<br/>}</pre> | no |
 | subnet\_ids | Subnets to allow access to that Storage Account. | `list(string)` | `[]` | no |
 | tables | List of objects to create some Tables in this Storage Account. | <pre>list(object({<br/>    name = string<br/>    acl = optional(list(object({<br/>      id          = string<br/>      permissions = string<br/>      start       = optional(string)<br/>      expiry      = optional(string)<br/>    })))<br/>  }))</pre> | `[]` | no |
-| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `storage_account_custom_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | use\_subdomain | Should the Custom Domain Name be validated by using indirect CNAME validation? | `bool` | `false` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| storage\_account\_id | Created Storage Account ID. |
-| storage\_account\_identity | Created Storage Account identity block. |
-| storage\_account\_name | Created Storage Account name. |
-| storage\_account\_properties | Created Storage Account properties. |
-| storage\_blob\_containers | Created blob containers in the Storage Account. |
-| storage\_file\_queues | Created queues in the Storage Account. |
-| storage\_file\_shares | Created file shares in the Storage Account. |
-| storage\_file\_tables | Created tables in the Storage Account. |
+| blob\_containers | Created blob containers in the Storage Account. |
+| file\_shares | Created file shares in the Storage Account. |
+| id | Storage Account ID. |
+| identity\_principal\_id | Storage Account system identity principal ID. |
+| name | Storage Account name. |
+| queues | Created queues in the Storage Account. |
+| resource | Storage Account resource object. |
+| resource\_diagnostics | Diagnostics settings module outputs. |
+| tables | Created tables in the Storage Account. |
 <!-- END_TF_DOCS -->
