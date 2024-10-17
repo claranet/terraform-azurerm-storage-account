@@ -52,9 +52,9 @@ module "storage_account" {
 
   allowed_cidrs = [format("%s/32", data.http.my_ip.body)]
 
-  account_replication_type = "LRS"
+  account_replication_type = "ZRS"
 
-  storage_blob_data_protection = {
+  blob_data_protection = {
     change_feed_enabled                       = true
     versioning_enabled                        = true
     delete_retention_policy_in_days           = 42
@@ -63,7 +63,7 @@ module "storage_account" {
   }
 
   # Disabled by default
-  storage_blob_cors_rules = [{
+  blob_cors_rules = [{
     allowed_headers    = ["*"]
     allowed_methods    = ["GET", "HEAD"]
     allowed_origins    = ["https://example.com"]
@@ -152,15 +152,17 @@ module "storage_account" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | access\_tier | Defines the access tier for `BlobStorage`, `FileStorage` and `StorageV2` accounts. Valid options are `Hot` and `Cool`, defaults to `Hot`. | `string` | `"Hot"` | no |
-| account\_kind | Defines the Kind of account. Valid options are `BlobStorage`, `BlockBlobStorage`, `FileStorage`, `Storage` and `StorageV2`. Changing this forces a new resource to be created. Defaults to StorageV2. | `string` | `"StorageV2"` | no |
+| account\_kind | Defines the Kind of account. Valid options are `BlobStorage`, `BlockBlobStorage`, `FileStorage`, `Storage` and `StorageV2`. Changing this forces a new resource to be created. Defaults to `StorageV2`. | `string` | `"StorageV2"` | no |
 | account\_replication\_type | Defines the type of replication to use for this Storage Account. Valid options are `LRS`, `GRS`, `RAGRS`, `ZRS`, `GZRS` and `RAGZRS`. | `string` | `"ZRS"` | no |
 | account\_tier | Defines the Tier to use for this Storage Account. Valid options are `Standard` and `Premium`. For `BlockBlobStorage` and `FileStorage` accounts only `Premium` is valid. Changing this forces a new resource to be created. | `string` | `"Standard"` | no |
 | advanced\_threat\_protection\_enabled | Boolean flag which controls if advanced threat protection is enabled, see [documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information. | `bool` | `false` | no |
 | allowed\_cidrs | List of CIDR to allow access to that Storage Account. | `list(string)` | `[]` | no |
+| blob\_cors\_rules | Storage Account blob CORS rules. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information. | <pre>list(object({<br/>    allowed_headers    = list(string)<br/>    allowed_methods    = list(string)<br/>    allowed_origins    = list(string)<br/>    exposed_headers    = list(string)<br/>    max_age_in_seconds = number<br/>  }))</pre> | `[]` | no |
+| blob\_data\_protection | Storage account blob Data protection parameters. | <pre>object({<br/>    change_feed_enabled                       = optional(bool, false)<br/>    versioning_enabled                        = optional(bool, false)<br/>    last_access_time_enabled                  = optional(bool, false)<br/>    delete_retention_policy_in_days           = optional(number, 0)<br/>    container_delete_retention_policy_in_days = optional(number, 0)<br/>    container_point_in_time_restore           = optional(bool, false)<br/>  })</pre> | <pre>{<br/>  "change_feed_enabled": true,<br/>  "container_delete_retention_policy_in_days": 30,<br/>  "container_point_in_time_restore": true,<br/>  "delete_retention_policy_in_days": 30,<br/>  "last_access_time_enabled": true,<br/>  "versioning_enabled": true<br/>}</pre> | no |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
 | containers | List of objects to create some Blob containers in this Storage Account. | <pre>list(object({<br/>    name                  = string<br/>    container_access_type = optional(string, "private")<br/>    metadata              = optional(map(string))<br/>  }))</pre> | `[]` | no |
 | cross\_tenant\_replication\_enabled | Enable cross tenant replication. | `bool` | `false` | no |
-| custom\_domain\_name | The Custom Domain Name to use for the Storage Account, which will be validated by Azure. | `string` | `null` | no |
+| custom\_domain\_name | The custom domain name to use for the Storage Account, which will be validated by Azure. | `string` | `null` | no |
 | custom\_name | Custom Azure Storage Account name, generated if not set. | `string` | `""` | no |
 | customer\_managed\_key | Customer Managed Key. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#customer_managed_key) for more information. | <pre>object({<br/>    key_vault_key_id          = optional(string, null)<br/>    managed_hsm_key_id        = optional(string, null)<br/>    user_assigned_identity_id = string<br/>  })</pre> | `null` | no |
 | default\_firewall\_action | Which default firewalling policy to apply. Valid values are `Allow` or `Deny`. | `string` | `"Deny"` | no |
@@ -191,31 +193,29 @@ module "storage_account" {
 | nfsv3\_enabled | Is NFSv3 protocol enabled? Changing this forces a new resource to be created. | `bool` | `false` | no |
 | private\_link\_access | List of Privatelink objects to allow access from. | <pre>list(object({<br/>    endpoint_resource_id = string<br/>    endpoint_tenant_id   = optional(string, null)<br/>  }))</pre> | `[]` | no |
 | public\_nested\_items\_allowed | Allow or disallow nested items within this Account to opt into being public. | `bool` | `false` | no |
-| public\_network\_access\_enabled | Whether the public network access is enabled? | `bool` | `true` | no |
+| public\_network\_access\_enabled | Whether the public network access is enabled. | `bool` | `true` | no |
 | queue\_properties\_logging | Logging queue properties | <pre>object({<br/>    delete                = optional(bool, true)<br/>    read                  = optional(bool, true)<br/>    write                 = optional(bool, true)<br/>    version               = optional(string, "1.0")<br/>    retention_policy_days = optional(number, 10)<br/>  })</pre> | `{}` | no |
 | queues | List of objects to create some Queues in this Storage Account. | <pre>list(object({<br/>    name     = string<br/>    metadata = optional(map(string))<br/>  }))</pre> | `[]` | no |
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |
 | sftp\_enabled | Is SFTP enabled? | `bool` | `false` | no |
-| shared\_access\_key\_enabled | Indicates whether the Storage Account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Entra ID). | `bool` | `true` | no |
+| shared\_access\_key\_enabled | Indicates whether the Storage Account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Entra ID). | `bool` | `false` | no |
 | stack | Project stack name. | `string` | n/a | yes |
 | static\_website\_config | Static website configuration. Can only be set when the `account_kind` is set to `StorageV2` or `BlockBlobStorage`. | <pre>object({<br/>    index_document     = optional(string)<br/>    error_404_document = optional(string)<br/>  })</pre> | `null` | no |
-| storage\_blob\_cors\_rules | Storage Account blob CORS rules. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#cors_rule) for more information. | <pre>list(object({<br/>    allowed_headers    = list(string)<br/>    allowed_methods    = list(string)<br/>    allowed_origins    = list(string)<br/>    exposed_headers    = list(string)<br/>    max_age_in_seconds = number<br/>  }))</pre> | `[]` | no |
-| storage\_blob\_data\_protection | Storage account blob Data protection parameters. | <pre>object({<br/>    change_feed_enabled                       = optional(bool, false)<br/>    versioning_enabled                        = optional(bool, false)<br/>    last_access_time_enabled                  = optional(bool, false)<br/>    delete_retention_policy_in_days           = optional(number, 0)<br/>    container_delete_retention_policy_in_days = optional(number, 0)<br/>    container_point_in_time_restore           = optional(bool, false)<br/>  })</pre> | <pre>{<br/>  "change_feed_enabled": true,<br/>  "container_delete_retention_policy_in_days": 30,<br/>  "container_point_in_time_restore": true,<br/>  "delete_retention_policy_in_days": 30,<br/>  "last_access_time_enabled": true,<br/>  "versioning_enabled": true<br/>}</pre> | no |
 | subnet\_ids | Subnets to allow access to that Storage Account. | `list(string)` | `[]` | no |
 | tables | List of objects to create some Tables in this Storage Account. | <pre>list(object({<br/>    name = string<br/>    acl = optional(list(object({<br/>      id          = string<br/>      permissions = string<br/>      start       = optional(string)<br/>      expiry      = optional(string)<br/>    })))<br/>  }))</pre> | `[]` | no |
-| use\_subdomain | Should the Custom Domain Name be validated by using indirect CNAME validation? | `bool` | `false` | no |
+| use\_subdomain | Whether the custom domain name should be validated by using indirect CNAME validation. | `bool` | `false` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| blob\_containers | Created blob containers in the Storage Account. |
-| file\_shares | Created file shares in the Storage Account. |
 | id | Storage Account ID. |
 | identity\_principal\_id | Storage Account system identity principal ID. |
+| module\_diagnostics | Diagnostics settings module outputs. |
 | name | Storage Account name. |
-| queues | Created queues in the Storage Account. |
 | resource | Storage Account resource object. |
-| resource\_diagnostics | Diagnostics settings module outputs. |
-| tables | Created tables in the Storage Account. |
+| resource\_blob\_containers | Created blob containers in the Storage Account. |
+| resource\_file\_shares | Created file shares in the Storage Account. |
+| resource\_queues | Created queues in the Storage Account. |
+| resource\_tables | Created tables in the Storage Account. |
 <!-- END_TF_DOCS -->

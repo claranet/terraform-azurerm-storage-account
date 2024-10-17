@@ -48,7 +48,7 @@ module "storage_account" {
     }
   ]
 
-  storage_blob_data_protection = {
+  blob_data_protection = {
     change_feed_enabled                       = true
     versioning_enabled                        = true
     delete_retention_policy_in_days           = 42

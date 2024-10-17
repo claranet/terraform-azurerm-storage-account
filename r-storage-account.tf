@@ -61,16 +61,16 @@ resource "azurerm_storage_account" "main" {
 
   dynamic "blob_properties" {
     for_each = (
-      var.account_kind != "FileStorage" && (var.storage_blob_data_protection != null || length(var.storage_blob_cors_rules) > 0) ? ["enabled"] : []
+      var.account_kind != "FileStorage" && (var.blob_data_protection != null || length(var.blob_cors_rules) > 0) ? ["enabled"] : []
     )
 
     content {
-      change_feed_enabled      = var.nfsv3_enabled || var.sftp_enabled ? false : var.storage_blob_data_protection.change_feed_enabled
-      versioning_enabled       = var.nfsv3_enabled || var.sftp_enabled ? false : var.storage_blob_data_protection.versioning_enabled
-      last_access_time_enabled = var.nfsv3_enabled || var.sftp_enabled ? false : var.storage_blob_data_protection.last_access_time_enabled
+      change_feed_enabled      = var.nfsv3_enabled || var.sftp_enabled ? false : var.blob_data_protection.change_feed_enabled
+      versioning_enabled       = var.nfsv3_enabled || var.sftp_enabled ? false : var.blob_data_protection.versioning_enabled
+      last_access_time_enabled = var.nfsv3_enabled || var.sftp_enabled ? false : var.blob_data_protection.last_access_time_enabled
 
       dynamic "cors_rule" {
-        for_each = var.storage_blob_cors_rules
+        for_each = var.blob_cors_rules
         content {
           allowed_headers    = cors_rule.value.allowed_headers
           allowed_methods    = cors_rule.value.allowed_methods
@@ -81,23 +81,23 @@ resource "azurerm_storage_account" "main" {
       }
 
       dynamic "delete_retention_policy" {
-        for_each = var.storage_blob_data_protection.delete_retention_policy_in_days > 0 ? ["enabled"] : []
+        for_each = var.blob_data_protection.delete_retention_policy_in_days > 0 ? ["enabled"] : []
         content {
-          days = var.storage_blob_data_protection.delete_retention_policy_in_days
+          days = var.blob_data_protection.delete_retention_policy_in_days
         }
       }
 
       dynamic "container_delete_retention_policy" {
-        for_each = var.storage_blob_data_protection.container_delete_retention_policy_in_days > 0 ? ["enabled"] : []
+        for_each = var.blob_data_protection.container_delete_retention_policy_in_days > 0 ? ["enabled"] : []
         content {
-          days = var.storage_blob_data_protection.container_delete_retention_policy_in_days
+          days = var.blob_data_protection.container_delete_retention_policy_in_days
         }
       }
 
       dynamic "restore_policy" {
         for_each = local.pitr_enabled ? ["enabled"] : []
         content {
-          days = var.storage_blob_data_protection.container_delete_retention_policy_in_days - 1
+          days = var.blob_data_protection.container_delete_retention_policy_in_days - 1
         }
       }
     }

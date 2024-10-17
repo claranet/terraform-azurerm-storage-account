@@ -12,9 +12,9 @@ module "storage_account" {
 
   allowed_cidrs = [format("%s/32", data.http.my_ip.body)]
 
-  account_replication_type = "LRS"
+  account_replication_type = "ZRS"
 
-  storage_blob_data_protection = {
+  blob_data_protection = {
     change_feed_enabled                       = true
     versioning_enabled                        = true
     delete_retention_policy_in_days           = 42
@@ -23,7 +23,7 @@ module "storage_account" {
   }
 
   # Disabled by default
-  storage_blob_cors_rules = [{
+  blob_cors_rules = [{
     allowed_headers    = ["*"]
     allowed_methods    = ["GET", "HEAD"]
     allowed_origins    = ["https://example.com"]

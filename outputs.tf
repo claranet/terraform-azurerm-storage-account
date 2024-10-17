@@ -18,27 +18,27 @@ output "identity_principal_id" {
   value       = try(azurerm_storage_account.main.identity[0].principal_id, null)
 }
 
-output "resource_diagnostics" {
+output "module_diagnostics" {
   description = "Diagnostics settings module outputs."
   value       = module.diagnostics
 }
 
-output "blob_containers" {
+output "resource_blob_containers" {
   description = "Created blob containers in the Storage Account."
   value       = azurerm_storage_container.main
 }
 
-output "file_shares" {
+output "resource_file_shares" {
   description = "Created file shares in the Storage Account."
   value       = azurerm_storage_share.main
 }
 
-output "tables" {
+output "resource_tables" {
   description = "Created tables in the Storage Account."
   value       = azurerm_storage_table.main
 }
 
-output "queues" {
+output "resource_queues" {
   description = "Created queues in the Storage Account."
   value       = azurerm_storage_queue.main
 }
