@@ -70,7 +70,7 @@ variable "static_website_config" {
 }
 
 variable "shared_access_key_enabled" {
-  description = "Indicates whether the Storage Account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Azure AD)."
+  description = "Indicates whether the Storage Account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Entra ID)."
   type        = bool
   default     = true
 }
