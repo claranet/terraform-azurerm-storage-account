@@ -1,39 +1,44 @@
-output "storage_account_properties" {
-  description = "Created Storage Account properties."
-  value       = azurerm_storage_account.storage
+output "resource" {
+  description = "Storage Account resource object."
+  value       = azurerm_storage_account.main
 }
 
-output "storage_account_id" {
-  description = "Created Storage Account ID."
-  value       = azurerm_storage_account.storage.id
+output "id" {
+  description = "Storage Account ID."
+  value       = azurerm_storage_account.main.id
 }
 
-output "storage_account_name" {
-  description = "Created Storage Account name."
-  value       = azurerm_storage_account.storage.name
+output "name" {
+  description = "Storage Account name."
+  value       = azurerm_storage_account.main.name
 }
 
-output "storage_account_identity" {
-  description = "Created Storage Account identity block."
-  value       = azurerm_storage_account.storage.identity
+output "identity_principal_id" {
+  description = "Storage Account system identity principal ID."
+  value       = try(azurerm_storage_account.main.identity[0].principal_id, null)
 }
 
-output "storage_blob_containers" {
+output "module_diagnostics" {
+  description = "Diagnostics settings module outputs."
+  value       = module.diagnostics
+}
+
+output "resource_blob_containers" {
   description = "Created blob containers in the Storage Account."
-  value       = azurerm_storage_container.container
+  value       = azurerm_storage_container.main
 }
 
-output "storage_file_shares" {
+output "resource_file_shares" {
   description = "Created file shares in the Storage Account."
-  value       = azurerm_storage_share.share
+  value       = azurerm_storage_share.main
 }
 
-output "storage_file_tables" {
+output "resource_tables" {
   description = "Created tables in the Storage Account."
-  value       = azurerm_storage_table.table
+  value       = azurerm_storage_table.main
 }
 
-output "storage_file_queues" {
+output "resource_queues" {
   description = "Created queues in the Storage Account."
-  value       = azurerm_storage_queue.queue
+  value       = azurerm_storage_queue.main
 }

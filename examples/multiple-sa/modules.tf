@@ -9,10 +9,11 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  client_name = var.client_name
-  environment = var.environment
-  location    = module.azure_region.location
-  stack       = var.stack
+  client_name    = var.client_name
+  environment    = var.environment
+  location       = module.azure_region.location
+  location_short = module.azure_region.location_short
+  stack          = var.stack
 }
 
 locals {
@@ -34,7 +35,7 @@ module "storage_account" {
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   account_replication_type = "LRS"
 
@@ -47,7 +48,7 @@ module "storage_account" {
     }
   ]
 
-  storage_blob_data_protection = {
+  blob_data_protection = {
     change_feed_enabled                       = true
     versioning_enabled                        = true
     delete_retention_policy_in_days           = 42

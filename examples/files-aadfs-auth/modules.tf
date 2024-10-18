@@ -13,26 +13,27 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  client_name = var.client_name
-  environment = var.environment
-  location    = module.azure_region.location
-  stack       = var.stack
-}
-
-module "run" {
-  source  = "claranet/run/azurerm"
-  version = "x.x.x"
-
   client_name    = var.client_name
   environment    = var.environment
   location       = module.azure_region.location
   location_short = module.azure_region.location_short
   stack          = var.stack
-
-  monitoring_function_enabled = false
-
-  resource_group_name = module.rg.resource_group_name
 }
+
+# module "run" {
+#   source  = "claranet/run/azurerm"
+#   version = "x.x.x"
+
+#   client_name    = var.client_name
+#   environment    = var.environment
+#   location       = module.azure_region.location
+#   location_short = module.azure_region.location_short
+#   stack          = var.stack
+
+#   monitoring_function_enabled = false
+
+#   resource_group_name = module.rg.name
+# }
 
 module "storage_account" {
   source  = "claranet/storage-account/azurerm"
@@ -44,13 +45,13 @@ module "storage_account" {
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   allowed_cidrs = [format("%s/32", data.http.my_ip.body)]
 
   logs_destinations_ids = [
-    module.run.logs_storage_account_id,
-    module.run.log_analytics_workspace_id,
+    # module.run.logs_storage_account_id,
+    # module.run.log_analytics_workspace_id,
   ]
 
   # This require Administrator rights on the tenant

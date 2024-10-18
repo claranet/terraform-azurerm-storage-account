@@ -1,39 +1,3 @@
-data "http" "my_ip" {
-  url = "http://ip4.clara.net/?raw"
-}
-
-module "azure_region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  client_name = var.client_name
-  environment = var.environment
-  location    = module.azure_region.location
-  stack       = var.stack
-}
-
-module "run" {
-  source  = "claranet/run/azurerm"
-  version = "x.x.x"
-
-  client_name    = var.client_name
-  environment    = var.environment
-  location       = module.azure_region.location
-  location_short = module.azure_region.location_short
-  stack          = var.stack
-
-  monitoring_function_enabled = false
-
-  resource_group_name = module.rg.resource_group_name
-}
-
 module "storage_account" {
   source  = "claranet/storage-account/azurerm"
   version = "x.x.x"
@@ -44,13 +8,13 @@ module "storage_account" {
   environment    = var.environment
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
   allowed_cidrs = [format("%s/32", data.http.my_ip.body)]
 
-  account_replication_type = "LRS"
+  account_replication_type = "ZRS"
 
-  storage_blob_data_protection = {
+  blob_data_protection = {
     change_feed_enabled                       = true
     versioning_enabled                        = true
     delete_retention_policy_in_days           = 42
@@ -59,7 +23,7 @@ module "storage_account" {
   }
 
   # Disabled by default
-  storage_blob_cors_rules = [{
+  blob_cors_rules = [{
     allowed_headers    = ["*"]
     allowed_methods    = ["GET", "HEAD"]
     allowed_origins    = ["https://example.com"]
@@ -68,8 +32,8 @@ module "storage_account" {
   }]
 
   logs_destinations_ids = [
-    module.run.logs_storage_account_id,
-    module.run.log_analytics_workspace_id,
+    # module.run.logs_storage_account_id,
+    # module.run.log_analytics_workspace_id,
   ]
 
   # Set by default
