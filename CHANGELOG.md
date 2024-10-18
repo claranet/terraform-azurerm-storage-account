@@ -1,3 +1,33 @@
+## 8.0.0 (2024-10-18)
+
+### ⚠ BREAKING CHANGES
+
+* **AZ-1088:** `shared_access_key_enabled` should be disabled and use Entra ID RBAC instead
+* **AZ-1088:** AzureRM Provider v4+ and OpenTofu 1.8+
+
+### Features
+
+* **AZ-1088:** module v8 structure and updates a64a02b
+
+### Code Refactoring
+
+* **AZ-1088:** variable `shared_access_key_enabled` is now `[secure]` by default 4804ab5
+
+### Miscellaneous Chores
+
+* apply suggestion(s) to file(s) 08314a4
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to v8 110a9dd
+* **deps:** update dependency opentofu to v1.8.3 5539734
+* **deps:** update dependency pre-commit to v4 1bf68ab
+* **deps:** update dependency pre-commit to v4.0.1 198b207
+* **deps:** update dependency trivy to v0.56.1 88a3c81
+* **deps:** update dependency trivy to v0.56.2 8b139cd
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v5 206d928
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.1.0 de21376
+* **deps:** update terraform claranet/diagnostic-settings/azurerm to v7 05176cc
+* prepare for new examples structure d06185b
+* update examples structure a428722
+
 ## 7.14.0 (2024-10-03)
 
 ### Features
