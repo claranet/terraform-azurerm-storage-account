@@ -1,3 +1,16 @@
+## 8.1.0 (2024-11-14)
+
+### Features
+
+* **AZ-1088:** also add Table & Queue Data roles af9d2e9
+* **AZ-1088:** handle optional RBAC Storage Roles assignments 918659c
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.4 c7cf318
+* **deps:** update dependency tflint to v0.54.0 b77b14d
+* **deps:** update tools dd43478
+
 ## 8.0.0 (2024-10-18)
 
 ### ⚠ BREAKING CHANGES
