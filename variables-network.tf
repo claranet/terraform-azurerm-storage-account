@@ -39,3 +39,17 @@ variable "private_link_access" {
   default  = []
   nullable = false
 }
+
+variable "public_nested_items_allowed" {
+  description = "Allow or disallow nested items within this Account to opt into being public."
+  type        = bool
+  default     = false
+  nullable    = false
+}
+
+variable "public_network_access_enabled" {
+  description = "Whether the public network access is enabled."
+  type        = bool
+  default     = true
+  nullable    = false
+}

@@ -42,20 +42,6 @@ variable "min_tls_version" {
   nullable    = false
 }
 
-variable "public_nested_items_allowed" {
-  description = "Allow or disallow nested items within this Account to opt into being public."
-  type        = bool
-  default     = false
-  nullable    = false
-}
-
-variable "public_network_access_enabled" {
-  description = "Whether the public network access is enabled."
-  type        = bool
-  default     = true
-  nullable    = false
-}
-
 variable "custom_domain_name" {
   description = "The custom domain name to use for the Storage Account, which will be validated by Azure."
   type        = string
@@ -76,13 +62,6 @@ variable "static_website_config" {
     error_404_document = optional(string)
   })
   default = null
-}
-
-variable "shared_access_key_enabled" {
-  description = "Indicates whether the Storage Account permits requests to be authorized with the account access key via Shared Key. If false, then all requests, including shared access signatures, must be authorized with Azure Active Directory (Entra ID)."
-  type        = bool
-  default     = false
-  nullable    = false
 }
 
 variable "nfsv3_enabled" {
