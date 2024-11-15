@@ -1,3 +1,9 @@
+## 8.2.0 (2024-11-15)
+
+### Features
+
+* storage_account_name parameter is deprecated for storage_container resource bdeb347
+
 ## 8.1.0 (2024-11-14)
 
 ### Features
