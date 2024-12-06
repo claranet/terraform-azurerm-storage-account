@@ -1,3 +1,16 @@
+## 8.2.1 (2024-12-06)
+
+### Bug Fixes
+
+* **AZ-1088:** less restrictive role assignments 2feaf30
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.6 2570df6
+* **deps:** update dependency trivy to v0.57.1 cb840c3
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.19.0 bcb0f9a
+* **deps:** update tools 33f3127
+
 ## 8.2.0 (2024-11-15)
 
 ### Features
