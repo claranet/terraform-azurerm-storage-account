@@ -1,3 +1,19 @@
+## 8.2.2 (2025-01-08)
+
+### Bug Fixes
+
+* ensure `storage_ip_rules` regexall only matches /31 and /32, but leaves /30 alone since it is valid 8fce7a8
+
+### Code Refactoring
+
+* update locals.tf 7b3ff63
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.8.8 1fa5181
+* **deps:** update dependency trivy to v0.58.1 56b4803
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.20.0 af4dda1
+
 ## 8.2.1 (2024-12-06)
 
 ### Bug Fixes
