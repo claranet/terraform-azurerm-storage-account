@@ -65,9 +65,10 @@ resource "azurerm_storage_account" "main" {
     )
 
     content {
-      change_feed_enabled      = var.nfsv3_enabled || var.sftp_enabled ? false : var.blob_data_protection.change_feed_enabled
-      versioning_enabled       = var.nfsv3_enabled || var.sftp_enabled ? false : var.blob_data_protection.versioning_enabled
-      last_access_time_enabled = var.nfsv3_enabled || var.sftp_enabled ? false : var.blob_data_protection.last_access_time_enabled
+      change_feed_enabled           = var.nfsv3_enabled || var.sftp_enabled ? false : var.blob_data_protection.change_feed_enabled
+      change_feed_retention_in_days = var.nfsv3_enabled || var.sftp_enabled || !var.blob_data_protection.change_feed_enabled ? null : var.blob_data_protection.change_feed_retention_in_days
+      versioning_enabled            = var.nfsv3_enabled || var.sftp_enabled ? false : var.blob_data_protection.versioning_enabled
+      last_access_time_enabled      = var.nfsv3_enabled || var.sftp_enabled ? false : var.blob_data_protection.last_access_time_enabled
 
       dynamic "cors_rule" {
         for_each = var.blob_cors_rules

@@ -122,6 +122,7 @@ variable "blob_data_protection" {
   description = "Storage account blob Data protection parameters."
   type = object({
     change_feed_enabled                       = optional(bool, false)
+    change_feed_retention_in_days             = optional(number, null)
     versioning_enabled                        = optional(bool, false)
     last_access_time_enabled                  = optional(bool, false)
     delete_retention_policy_in_days           = optional(number, 0)
@@ -130,6 +131,7 @@ variable "blob_data_protection" {
   })
   default = {
     change_feed_enabled                       = true
+    change_feed_retention_in_days             = null
     last_access_time_enabled                  = true
     versioning_enabled                        = true
     delete_retention_policy_in_days           = 30
