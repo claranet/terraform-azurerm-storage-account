@@ -1,3 +1,17 @@
+## 8.3.0 (2025-01-24)
+
+### Features
+
+* **AZ-1499:** add change_feed_retention_in_days parameter 03c6fa3
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.9.0 3930c3f
+* **deps:** update dependency pre-commit to v4.1.0 2a15579
+* **deps:** update dependency tflint to v0.55.0 123b49d
+* **deps:** update dependency trivy to v0.58.2 3e3dd00
+* update tflint config for v0.55.0 74e0337
+
 ## 8.2.2 (2025-01-08)
 
 ### Bug Fixes
