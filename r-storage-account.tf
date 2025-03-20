@@ -25,6 +25,7 @@ resource "azurerm_storage_account" "main" {
   https_traffic_only_enabled        = var.nfsv3_enabled ? false : var.https_traffic_only_enabled
   cross_tenant_replication_enabled  = var.cross_tenant_replication_enabled
   infrastructure_encryption_enabled = var.infrastructure_encryption_enabled
+  allowed_copy_scope                = var.allowed_copy_scope
 
   dynamic "identity" {
     for_each = var.identity_type[*]

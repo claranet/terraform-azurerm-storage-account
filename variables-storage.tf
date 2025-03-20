@@ -236,3 +236,13 @@ variable "cross_tenant_replication_enabled" {
   default     = false
   nullable    = false
 }
+
+variable "allowed_copy_scope" {
+  description = "Restrict copy to and from Storage Accounts within an AAD tenant or with Private Links to the same VNet. Possible values are `AAD` and `PrivateLink`."
+  type        = string
+  default     = null
+  validation {
+    condition     = contains(["AAD", "PrivateLink"], var.allowed_copy_scope) || var.allowed_copy_scope == null
+    error_message = "allowed values for allowed_copy_scope are 'AAD' or 'PrivateLink'."
+  }
+}
