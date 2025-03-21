@@ -1,3 +1,22 @@
+## 8.4.0 (2025-03-21)
+
+### Features
+
+* **AZ-1542:** add allowed_copy_scope parameter 562d557
+* **AZ-1542:** add allowed_copy_scope parameter 5c70ea9
+
+### Miscellaneous Chores
+
+* **AZ-1542:** fix validation condition and message fdcd71a
+* **deps:** update dependency pre-commit to v4.2.0 df1553f
+* **deps:** update dependency tflint to v0.55.1 2385234
+* **deps:** update dependency trivy to v0.59.0 f9feec5
+* **deps:** update dependency trivy to v0.59.1 059e953
+* **deps:** update dependency trivy to v0.60.0 4a7889a
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 9595d87
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 d0988c6
+* update Github templates 551c8da
+
 ## 8.3.0 (2025-01-24)
 
 ### Features
