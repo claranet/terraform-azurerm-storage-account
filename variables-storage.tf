@@ -242,7 +242,7 @@ variable "allowed_copy_scope" {
   type        = string
   default     = null
   validation {
-    condition     = var.allowed_copy_scope == null || (var.allowed_copy_scope != null && try(contains(["AAD", "PrivateLink"], var.allowed_copy_scope), false))
-    error_message = "Allowed values for allowed_copy_scope are 'AAD' or 'PrivateLink'."
+    condition     = var.allowed_copy_scope == null || try(contains(["AAD", "PrivateLink"], var.allowed_copy_scope), false)
+    error_message = "Allowed values for allowed_copy_scope are `AAD` or `PrivateLink`."
   }
 }
