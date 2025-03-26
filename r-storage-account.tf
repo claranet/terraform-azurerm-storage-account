@@ -198,13 +198,3 @@ resource "azurerm_storage_account" "main" {
     }
   }
 }
-
-moved {
-  from = azurerm_advanced_threat_protection.threat_protection
-  to   = azurerm_advanced_threat_protection.main
-}
-
-resource "azurerm_advanced_threat_protection" "main" {
-  enabled            = var.advanced_threat_protection_enabled
-  target_resource_id = azurerm_storage_account.main.id
-}
