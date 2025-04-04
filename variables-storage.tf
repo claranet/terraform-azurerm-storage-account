@@ -153,13 +153,24 @@ variable "blob_cors_rules" {
   nullable = false
 }
 
-# Threat protection
+# Advanced Threat protection / Defender for Cloud Storage settings
 
 variable "advanced_threat_protection_enabled" {
-  description = "Boolean flag which controls if advanced threat protection is enabled, see [documentation](https://docs.microsoft.com/en-us/azure/storage/common/storage-advanced-threat-protection?tabs=azure-portal) for more information."
+  description = "Boolean flag which controls if the Advanced Threat Protection is enabled. This is now deprecated and Microsoft recommends to switch to [the new Defender for Storage plan](https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-storage-classic-migrate)."
   type        = bool
   default     = false
   nullable    = false
+}
+
+variable "storage_defender_override_subscription_settings" {
+  description = "Override the Defender for Cloud Storage settings defined for the subscription. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/security_center_storage_defender) for more information. If you prefer to set the settings at the subscription scope please use instead the [Microsoft Defender for Cloud module](https://registry.terraform.io/modules/claranet/defender-for-cloud/azurerm/latest)."
+  type = object({
+    malware_scanning_on_upload_enabled          = optional(bool, false)
+    malware_scanning_on_upload_cap_gb_per_month = optional(number, -1)
+    scan_results_event_grid_topic_id            = optional(string, null)
+    sensitive_data_discovery_enabled            = optional(bool, false)
+  })
+  default = null
 }
 
 # Data creation/bootstrap

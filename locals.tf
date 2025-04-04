@@ -9,4 +9,6 @@ locals {
     && var.blob_data_protection.container_delete_retention_policy_in_days > 2
     && !(var.nfsv3_enabled || var.sftp_enabled || var.account_tier == "Premium")
   )
+
+  security_storage_plan = try(data.azapi_resource.security_storage.output.properties.subPlan, "")
 }
