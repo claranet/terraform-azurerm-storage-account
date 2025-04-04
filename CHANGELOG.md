@@ -1,3 +1,14 @@
+## 8.5.0 (2025-04-04)
+
+### Features
+
+* **AZ-1545:** add defender_storage_settings and deprecate azurerm_advanced_threat_protection d277a48
+
+### Miscellaneous Chores
+
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 7571e45
+* **deps:** update tools 185460c
+
 ## 8.4.0 (2025-03-21)
 
 ### Features
