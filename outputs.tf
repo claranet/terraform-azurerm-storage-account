@@ -1,6 +1,7 @@
 output "resource" {
   description = "Storage Account resource object."
   value       = azurerm_storage_account.main
+  sensitive   = true
 }
 
 output "id" {
