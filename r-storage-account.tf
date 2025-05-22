@@ -175,7 +175,7 @@ resource "azurerm_storage_account" "main" {
   dynamic "network_rules" {
     for_each = var.nfsv3_enabled ? ["enabled"] : []
     content {
-      default_action             = "Deny"
+      default_action             = var.default_firewall_action
       bypass                     = var.network_bypass
       ip_rules                   = local.storage_ip_rules
       virtual_network_subnet_ids = var.subnet_ids
