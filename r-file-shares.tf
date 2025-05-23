@@ -1,7 +1,7 @@
 resource "azurerm_storage_share" "main" {
   for_each = try({ for s in var.file_shares : s.name => s }, {})
 
-  storage_account_name = azurerm_storage_account.main.name
+  storage_account_id = azurerm_storage_account.main.id
 
   name  = each.key
   quota = each.value.quota_in_gb
