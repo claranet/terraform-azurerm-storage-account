@@ -1,3 +1,18 @@
+## 8.5.1 (2025-05-23)
+
+### Bug Fixes
+
+* **AZ-1563:** remove storage_account_name deprecated parameter in the storage share resource 85370b2
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.9.1 1a9d099
+* **deps:** update dependency terraform-docs to v0.20.0 c221258
+* **deps:** update dependency tflint to v0.57.0 f89f3c5
+* **deps:** update dependency trivy to v0.61.1 214fa89
+* **deps:** update dependency trivy to v0.62.0 025ca06
+* **deps:** update dependency trivy to v0.62.1 60b19ce
+
 ## 8.5.0 (2025-04-04)
 
 ### Features
