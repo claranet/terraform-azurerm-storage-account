@@ -1,3 +1,9 @@
+## 8.6.0 (2025-05-23)
+
+### Features
+
+* remove force deny in network rules when nfsv3 enabled 39fd56a
+
 ## 8.5.1 (2025-05-23)
 
 ### Bug Fixes
