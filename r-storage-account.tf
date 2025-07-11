@@ -17,7 +17,7 @@ resource "azurerm_storage_account" "main" {
   allow_nested_items_to_be_public = var.public_nested_items_allowed
   public_network_access_enabled   = var.public_network_access_enabled
   shared_access_key_enabled       = var.shared_access_key_enabled
-  large_file_share_enabled        = var.account_kind != "BlockBlobStorage" && contains(["LRS", "ZRS"], var.account_replication_type)
+  large_file_share_enabled        = var.account_kind != "BlockBlobStorage"
 
   sftp_enabled                      = var.sftp_enabled
   nfsv3_enabled                     = var.nfsv3_enabled
