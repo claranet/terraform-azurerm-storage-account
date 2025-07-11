@@ -1,3 +1,20 @@
+## 8.6.1 (2025-07-11)
+
+### Bug Fixes
+
+* **AZ-1583:** update large_file_share_enabled condition 4bd7021
+
+### Miscellaneous Chores
+
+* **⚙️:** ✏️ update template identifier for MR review 38d236e
+* 🗑️ remove old commitlint configuration files e422c05
+* **deps:** update dependency opentofu to v1.10.0 bf7b8b5
+* **deps:** update dependency opentofu to v1.10.1 812592a
+* **deps:** update dependency tflint to v0.58.0 4383506
+* **deps:** update dependency trivy to v0.63.0 682e87b
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.1 a79366c
+* **deps:** update tools 27b7b22
+
 ## 8.6.0 (2025-05-23)
 
 ### Features
