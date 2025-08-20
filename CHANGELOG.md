@@ -1,3 +1,17 @@
+## 8.6.2 (2025-08-20)
+
+### Bug Fixes
+
+* update `large_file_share_enabled` condition for storage account b7d78f6
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.10.3 8fe0971
+* **deps:** update dependency tflint to v0.58.1 de97aa8
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v6 dc26c1c
+* **deps:** update tools b2a707e
+* **deps:** update tools 553fcab
+
 ## 8.6.1 (2025-07-11)
 
 ### Bug Fixes
