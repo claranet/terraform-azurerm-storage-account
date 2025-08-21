@@ -126,7 +126,7 @@ module "storage_account" {
 |------|---------|
 | azapi | ~> 2.3 |
 | azurecaf | ~> 1.2.28 |
-| azurerm | ~> 4.9 |
+| azurerm | ~> 4.22 |
 
 ## Modules
 
