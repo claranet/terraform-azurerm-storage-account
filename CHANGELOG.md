@@ -1,3 +1,13 @@
+## 8.6.3 (2025-08-22)
+
+### Code Refactoring
+
+* ♻️ drop deprecated queues_properties bloc and use `azurerm_storage_account_queue_properties` 0a625a4
+
+### Miscellaneous Chores
+
+* **deps:** 🔗 bump AzureRM provider for the new resource `azurerm_storage_account_queue_properties` 15fbafb
+
 ## 8.6.2 (2025-08-20)
 
 ### Bug Fixes
