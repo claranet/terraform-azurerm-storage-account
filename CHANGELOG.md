@@ -1,3 +1,15 @@
+## 8.6.4 (2025-09-01)
+
+### Bug Fixes
+
+* 🐛 bump diagnostics ed3d467
+
+### Miscellaneous Chores
+
+* **deps:** 🔗 bump AzureRM provider version to v4.31+ a492cbe
+* **deps:** update dependency claranet/diagnostic-settings/azurerm to ~> 8.1.0 b95a373
+* **deps:** update dependency tflint to v0.59.1 f7ec06e
+
 ## 8.6.3 (2025-08-22)
 
 ### Code Refactoring
