@@ -1,6 +1,6 @@
 module "diagnostics" {
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "~> 8.1.0"
+  version = "~> 8.2.0"
 
   resource_id = azurerm_storage_account.main.id
 
@@ -17,7 +17,7 @@ module "diagnostics_type" {
   for_each = toset(["blob", "file", "table", "queue"])
 
   source  = "claranet/diagnostic-settings/azurerm"
-  version = "~> 8.1.0"
+  version = "~> 8.2.0"
 
   resource_id = format("%s/%sServices/default/", azurerm_storage_account.main.id, each.key)
 
