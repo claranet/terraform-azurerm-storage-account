@@ -1,3 +1,22 @@
+## 8.6.5 (2025-10-10)
+
+### Documentation
+
+* 📚️ update module examples 1ef53ea
+
+### Code Refactoring
+
+* **deps:** 🔗 update claranet/azurecaf to ~> 1.3.0 🔧 e1c5ae7
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.10.6 5ea5d60
+* **deps:** update dependency trivy to v0.66.0 15c4278
+* **deps:** update dependency trivy to v0.67.0 8cdb0d3
+* **deps:** update dependency trivy to v0.67.1 ccfe191
+* **deps:** update terraform claranet/diagnostic-settings/azurerm to ~> 8.2.0 7869808
+* merge remote-tracking branch 'origin/renovate/tools' 970a16d
+
 ## 8.6.4 (2025-09-01)
 
 ### Bug Fixes
