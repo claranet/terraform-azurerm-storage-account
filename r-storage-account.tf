@@ -3,6 +3,8 @@ moved {
   to   = azurerm_storage_account.main
 }
 
+# https://avd.aquasec.com/misconfig/avd-azu-0008
+#trivy:ignore:AVD-AZU-0008
 resource "azurerm_storage_account" "main" {
   name                = local.name
   resource_group_name = var.resource_group_name
