@@ -1,3 +1,21 @@
+## 8.6.6 (2025-12-15)
+
+### Bug Fixes
+
+* **trivy:** 🐛🔒️ ignore trivy rule for option managed by input variables edc4920
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.10.7 c8c16fd
+* **deps:** update dependency pre-commit to v4.4.0 2a5758c
+* **deps:** update dependency pre-commit to v4.5.0 dad3e25
+* **deps:** update dependency tflint to v0.60.0 a47fa8a
+* **deps:** update dependency trivy to v0.67.2 b3a6e8d
+* **deps:** update dependency trivy to v0.68.1 fcf37a4
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.8 1277875
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.2 8950624
+* **deps:** update tools c340eb9
+
 ## 8.6.5 (2025-10-10)
 
 ### Documentation
