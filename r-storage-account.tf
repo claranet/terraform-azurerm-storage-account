@@ -185,5 +185,8 @@ resource "azurerm_storage_account" "main" {
       condition     = var.account_tier != "Premium" || !local.pitr_enabled
       error_message = "Point in time restore is not supported with Premium Storage Accounts."
     }
+    ignore_changes = [
+      share_properties[0].smb
+    ]
   }
 }
