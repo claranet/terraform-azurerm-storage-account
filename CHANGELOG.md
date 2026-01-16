@@ -1,3 +1,18 @@
+## 8.6.7 (2026-01-16)
+
+### Bug Fixes
+
+* **AZ-1631:** 🐛 add ignore_changes for smb in share_properties 903df30
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.11.2 5a33ef6
+* **deps:** update dependency opentofu to v1.11.3 8d76afc
+* **deps:** update dependency pre-commit to v4.5.1 dba93b3
+* **deps:** update dependency trivy to v0.68.2 8b65365
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.10 5c306a6
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.9 9c0b556
+
 ## 8.6.6 (2025-12-15)
 
 ### Bug Fixes
