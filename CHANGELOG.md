@@ -1,3 +1,14 @@
+## 8.6.8 (2026-02-02)
+
+### Bug Fixes
+
+* **trivy:** 🐛 update ignored rules 2f790b6
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.11.4 006bb4e
+* **deps:** update dependency trivy to v0.69.0 c57d11d
+
 ## 8.6.7 (2026-01-16)
 
 ### Bug Fixes
