@@ -1,3 +1,19 @@
+## 8.6.9 (2026-03-02)
+
+### Code Refactoring
+
+* **gitlab MR template:** ♻️ update default reviewers group with Azure Factory 🔧 362c518
+
+### Miscellaneous Chores
+
+* 🔧 add tflint ignore 9e08b88
+* **deps:** 🔗 bump tflint rules version e1b88f2
+* **deps:** update dependency tflint to v0.61.0 287ce1b
+* **deps:** update dependency trivy to v0.69.1 57130ac
+* **deps:** update pre-commit hook crate-ci/committed to v1.1.11 7496b7a
+* **deps:** update tools 3746ee7
+* merge remote-tracking branch 'origin/renovate/tools' e10a7c5
+
 ## 8.6.8 (2026-02-02)
 
 ### Bug Fixes
