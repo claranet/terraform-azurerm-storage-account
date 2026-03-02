@@ -71,3 +71,17 @@ rule "terraform_unused_required_providers" {
 rule "terraform_standard_module_structure" {
   enabled = false
 }
+
+rule "azurerm_resources_missing_prevent_destroy" {
+  enabled = true
+  exclude = [
+    "azurerm_storage_account",
+    "azurerm_storage_blob",
+    "azurerm_storage_container",
+    "azurerm_storage_queue",
+    "azurerm_storage_share",
+    "azurerm_storage_share_directory",
+    "azurerm_storage_share_file",
+    "azurerm_storage_table",
+  ] # Don't check storage resources
+}
