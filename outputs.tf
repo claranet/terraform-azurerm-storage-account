@@ -1,6 +1,7 @@
 output "resource" {
   description = "Storage Account resource object."
   value       = azurerm_storage_account.main
+  sensitive   = true
 }
 
 output "id" {
@@ -26,19 +27,23 @@ output "module_diagnostics" {
 output "resource_blob_containers" {
   description = "Created blob containers in the Storage Account."
   value       = azurerm_storage_container.main
+  sensitive   = true
 }
 
 output "resource_file_shares" {
   description = "Created file shares in the Storage Account."
   value       = azurerm_storage_share.main
+  sensitive   = true
 }
 
 output "resource_tables" {
   description = "Created tables in the Storage Account."
   value       = azurerm_storage_table.main
+  sensitive   = true
 }
 
 output "resource_queues" {
   description = "Created queues in the Storage Account."
   value       = azurerm_storage_queue.main
+  sensitive   = true
 }
