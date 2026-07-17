@@ -1,7 +1,9 @@
 plugin "azurerm" {
   enabled = true
   source  = "github.com/terraform-linters/tflint-ruleset-azurerm"
-  version = "0.31.1"
+  version = "0.32.0"
+
+  signature = "pgp" // Verify via PGP, not GitHub attestation
 }
 
 config {
@@ -84,4 +86,9 @@ rule "azurerm_resources_missing_prevent_destroy" {
     "azurerm_storage_share_file",
     "azurerm_storage_table",
   ] # Don't check storage resources
+}
+
+# Disabled because auto_heal_setting is rendered via a dynamic block which tflint cannot statically analyse
+rule "azurerm_app_service_missing_auto_heal_setting" {
+  enabled = false
 }
