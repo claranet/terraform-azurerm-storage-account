@@ -1,7 +1,7 @@
 resource "azurerm_storage_table" "main" {
   for_each = try({ for t in var.tables : t.name => t }, {})
 
-  storage_account_name = azurerm_storage_account.main.name
+  storage_account_id = azurerm_storage_account.main.id
 
   name = each.key
 

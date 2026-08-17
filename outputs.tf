@@ -47,3 +47,8 @@ output "resource_queues" {
   value       = azurerm_storage_queue.main
   sensitive   = true
 }
+
+output "resource_static_website" {
+  description = "Static website resource of the Storage Account."
+  value       = one(azurerm_storage_account_static_website.main)
+}

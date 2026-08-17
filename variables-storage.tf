@@ -36,10 +36,14 @@ variable "https_traffic_only_enabled" {
 }
 
 variable "min_tls_version" {
-  description = "The minimum supported TLS version for the Storage Account. Possible values are `TLS1_0`, `TLS1_1`, and `TLS1_2`. "
+  description = "The minimum supported TLS version for the Storage Account. `TLS1_2` is the only value accepted by the AzureRM provider since its `5.0` release."
   type        = string
   default     = "TLS1_2"
   nullable    = false
+  validation {
+    condition     = var.min_tls_version == "TLS1_2"
+    error_message = "`TLS1_0` and `TLS1_1` are no longer accepted, `min_tls_version` must be `TLS1_2`."
+  }
 }
 
 variable "custom_domain_name" {
@@ -56,7 +60,7 @@ variable "use_subdomain" {
 }
 
 variable "static_website_config" {
-  description = "Static website configuration. Can only be set when the `account_kind` is set to `StorageV2` or `BlockBlobStorage`."
+  description = "Static website configuration, managed by the dedicated `azurerm_storage_account_static_website` resource. Can only be set when the `account_kind` is set to `StorageV2` or `BlockBlobStorage`."
   type = object({
     index_document     = optional(string)
     error_404_document = optional(string)
@@ -104,8 +108,7 @@ variable "identity_ids" {
 variable "customer_managed_key" {
   description = "Customer Managed Key. Please refer to the [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/storage_account#customer_managed_key) for more information."
   type = object({
-    key_vault_key_id          = optional(string, null)
-    managed_hsm_key_id        = optional(string, null)
+    key_vault_key_id          = string
     user_assigned_identity_id = string
   })
   default = null

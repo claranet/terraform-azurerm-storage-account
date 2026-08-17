@@ -37,14 +37,6 @@ resource "azurerm_storage_account" "main" {
     }
   }
 
-  dynamic "static_website" {
-    for_each = var.static_website_config[*]
-    content {
-      index_document     = var.static_website_config.index_document
-      error_404_document = var.static_website_config.error_404_document
-    }
-  }
-
   dynamic "custom_domain" {
     for_each = var.custom_domain_name[*]
     content {
@@ -57,7 +49,6 @@ resource "azurerm_storage_account" "main" {
     for_each = var.customer_managed_key[*]
     content {
       key_vault_key_id          = var.customer_managed_key.key_vault_key_id
-      managed_hsm_key_id        = var.customer_managed_key.managed_hsm_key_id
       user_assigned_identity_id = var.customer_managed_key.user_assigned_identity_id
     }
   }
