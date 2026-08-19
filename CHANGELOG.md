@@ -1,3 +1,34 @@
+## 9.0.0 (2026-08-19)
+
+### ⚠ BREAKING CHANGES
+
+* **SREAA-368:** the minimum OpenTofu version is raised to `1.12` and the AzureRM
+provider is constrained to `~> 5.0`, so consumers must upgrade both before using this
+release. Static website settings now live in a separate resource, so consumers already
+using `static_website_config` must import it with
+`tofu import 'module.<name>.azurerm_storage_account_static_website.main[0]' <storage_account_id>`
+before applying, otherwise the plan recreates the configuration. The
+`customer_managed_key.managed_hsm_key_id` attribute is gone and Managed HSM keys must be
+supplied through `key_vault_key_id`, which is now a required attribute of the
+`customer_managed_key` object instead of an optional one. `min_tls_version` no longer
+accepts `TLS1_0` or `TLS1_1`. The `diagnostic-settings` submodule moves to `~> 9.0`, which
+requires AzureRM `~> 5.0` as well. Two provider-level behaviour changes shipped with
+AzureRM 5.0 also apply: `resource_provider_registrations` now defaults to `none` instead of
+`legacy`, so no resource provider is registered automatically anymore, and the
+`enhanced_validation` block moved inside `features` with location and resource provider
+validation now disabled by default, which defers those errors from plan time to apply time.
+
+### Features
+
+* **SREAA-368:** upgrade module to v9 (OpenTofu >= 1.12, AzureRM ~> 5.0) 4602516
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.12.5 dba40ed
+* **deps:** update dependency tflint to v0.64.0 04f2fb6
+* **SREAA-368:** synchronize committed.toml and AGENTS.md from the ci template ee7e8db
+* **v9:** 🐛 synchronize common files and docs 84af5c0
+
 ## 8.6.12 (2026-07-20)
 
 ### Bug Fixes
