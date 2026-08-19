@@ -1,7 +1,7 @@
 resource "azurerm_storage_queue" "main" {
   for_each = try({ for q in var.queues : q.name => q }, {})
 
-  storage_account_name = azurerm_storage_account.main.name
+  storage_account_id = azurerm_storage_account.main.id
 
   name     = each.key
   metadata = each.value.metadata
